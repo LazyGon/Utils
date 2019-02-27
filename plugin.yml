@@ -1,0 +1,79 @@
+name: LazyUtils
+version: 1.0.0
+main: lazyutils.plugin.LazyUtils
+author: lazy_gon
+commands:
+  filer:
+    description: Commands that manage server directory in game.
+    usage: /filer <download|remove>
+    permission: lazyutils.filer
+    permission-message: '§c<permission> の権限がありません'
+  uuidscoreboard:
+    description: Commands that make uuid entries.
+    usage: /uuidscoreboard <add|set|reset|remove|get> <objective> [number]
+    aliases: [uscoreboard, uscore, usb]
+    permission: lazyutils.uuidscoreboard
+    permission-message: '§c<permission> の権限がありません'
+  scoreranking:
+    description: Command that shows vanilla scoreboard ranking in chat.
+    usage: /scoreranking <objective> <top> <bottom>
+    aliases: [scorerank, srank, sr]
+    permission: lazyutils.scoreranking
+    permission-message: '§c<permission> の権限がありません'
+    
+permissions:
+  lazyutils.*:
+    description: Includes all permissions.
+    default: op
+    children:
+      lazyutils.filer.*: true
+      lazyutils.uuidscoreboard.*: true
+      lazyutils.scoreranking: true
+  lazyutils.filer.*:
+    description: Includes all filer command's permission.
+    default: op
+    children:
+      lazyutils.filer: true
+      lazyutils.filer.download: true
+      lazyutils.filer.remove: true
+      lazyutils.filer.list: true
+  lazyutils.uuidscoreboard.*:
+    description: Includes all uuidscoreboard command's permission.
+    default: op
+    children:
+      lazyutils.uuidscoreboard: true
+      lazyutils.uuidscoreboard.add: true
+      lazyutils.uuidscoreboard.set: true
+      lazyutils.uuidscoreboard.remove: true
+      lazyutils.uuidscoreboard.get: true
+      lazyutils.uuidscoreboard.ranking: true
+  lazyutils.filer:
+    description: Permission for command /filer
+    default: op
+  lazyutils.filer.download:
+    description: Permission for command /filer download <filename> <URL>
+    default: op
+  lazyutils.filer.remove:
+    description: Permission for command /filer download.<filename>
+    default: op
+  lazyutils.filer.list:
+    description: Permission for command /filer list
+    default: op
+  lazyutils.uuidscoreboard:
+    description: Permission for command /uuidscoreboard
+    default: op
+  lazyutils.uuidscoreboard.add:
+    description: Permission for command /uuidscoreboard add <player> <score> <number>
+    default: op
+  lazyutils.uuidscoreboard.set:
+    description: Permission for command /uuidscoreboard set <player> <score> <number>
+    default: op
+  lazyutils.uuidscoreboard.remove:
+    description: Permission for command /uuidscoreboard remove <player> <score> <number>
+    default: op
+  lazyutils.uuidscoreboard.get:
+    description: Permission for command /uuidscoreboard get <player> <score>
+    default: op
+  lazyutils.scoreranking:
+    description: Permission for command /scoreranking <objective> top bottom
+    default: op
