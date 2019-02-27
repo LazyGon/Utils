@@ -1,4 +1,4 @@
-package lazyutils.plugin;
+package com.github.okocraft.lazyutils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import lazyutils.plugin.command.Commands;
+import com.github.okocraft.lazyutils.LazyUtilsConfig;
 
 public class LazyUtils extends JavaPlugin implements CommandExecutor{
 

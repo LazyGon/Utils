@@ -1,4 +1,4 @@
-package lazyutils.plugin;
+package com.github.okocraft.lazyutils;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
