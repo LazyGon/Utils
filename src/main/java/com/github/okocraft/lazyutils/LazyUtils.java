@@ -5,8 +5,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import com.github.okocraft.lazyutils.LazyUtilsConfig;
+import com.github.okocraft.lazyutils.command.Commands;
 
 public class LazyUtils extends JavaPlugin implements CommandExecutor{
 
