@@ -21,7 +21,6 @@ public class LazyUtils extends JavaPlugin implements CommandExecutor {
 		commands = new Commands();
 		config = new LazyUtilsConfig();
 
-		getCommand("filer").setExecutor(this);
 		getCommand("uuidscoreboard").setExecutor(this);
 		getCommand("scoreranking").setExecutor(this);
 

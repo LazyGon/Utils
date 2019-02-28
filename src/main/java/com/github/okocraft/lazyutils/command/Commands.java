@@ -5,14 +5,11 @@ import org.bukkit.command.CommandSender;
 
 public class Commands {
 
-	private Filer CommandFiler = new Filer();
 	private UuidScoreboard CommandUuidScoreboard = new UuidScoreboard();
 	private ScoreRanking CommandScoreRanking = new ScoreRanking();
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		if (command.getName().equalsIgnoreCase("filer"))
-			return CommandFiler.onCommand(sender, command, label, args);
 		if (command.getName().equalsIgnoreCase("uuidscoreboard"))
 			return CommandUuidScoreboard.onCommand(sender, command, label, args);
 		if (command.getName().equalsIgnoreCase("scoreranking"))
