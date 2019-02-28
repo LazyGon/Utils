@@ -12,27 +12,28 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.github.okocraft.lazyutils.LazyUtils;
 import com.github.okocraft.lazyutils.LazyUtilsConfig;
 
 public class Filer {
 
-	LazyUtilsConfig config = new LazyUtilsConfig();
-
-
+	LazyUtilsConfig config;
 
 	private String PermissionDenied;
 	private String HomeDirectory;
 	private String DownloadMessage;
 	private String RemoveMessage;
-	private String HelpMessage = config.getFilerHelpMessage();
+	private String HelpMessage;
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-		PermissionDenied = config.getPermissionDenied();
-		HomeDirectory = config.getFilerHomeDirectory();
-		DownloadMessage = config.getFilerDownloadMessage();
-		RemoveMessage = config.getFilerRemoveMessage();
-		HelpMessage = config.getFilerHelpMessage();
+		config = LazyUtils.getInstance().getLazyUtilsConfig();
+
+		this.PermissionDenied = config.getPermissionDenied();
+		this.HomeDirectory = config.getFilerHomeDirectory();
+		this.DownloadMessage = config.getFilerDownloadMessage();
+		this.RemoveMessage = config.getFilerRemoveMessage();
+		this.HelpMessage = config.getFilerHelpMessage();
 
 		if (args.length == 3)
 			if(args[0].equalsIgnoreCase("download"))

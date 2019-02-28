@@ -12,7 +12,11 @@ public class LazyUtilsConfig {
 	private String FilerRemoveMessage;
 	private String FilerHelpMessage;
 
-	void loadConfig(){
+	protected LazyUtilsConfig(){
+		this.reloadConfig();
+	}
+
+	public void reloadConfig(){
 
 		config = LazyUtils.getInstance().getConfig();
 
