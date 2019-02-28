@@ -46,15 +46,12 @@ public class ScoreRanking {
 
 		if (top < 1) {
 			sender.sendMessage("topが小さすぎます");
+			return true;
 		}
 
 		if (top > bottom) {
 			sender.sendMessage("topの値はbottomより小さくなくてはいけません");
 			return true;
-		}
-
-		if (bottom > MainScoreboard.getEntries().size()) {
-			sender.sendMessage("§bottomが大きすぎます");
 		}
 
 		Objective Obj = MainScoreboard.getObjective(args[0]);
@@ -67,10 +64,17 @@ public class ScoreRanking {
 		Map<String, Integer> Ranking = new HashMap<String, Integer>();
 
 		Set<String> Entries = MainScoreboard.getEntries();
+
 		for (String originalentry : Entries)
-			Ranking.put(originalentry, Obj.getScore(originalentry).getScore());
+			if(Obj.getScore(originalentry).isScoreSet())
+				Ranking.put(originalentry, Obj.getScore(originalentry).getScore());
 
 		List<Entry<String, Integer>> rank = new ArrayList<Entry<String, Integer>>(Ranking.entrySet());
+
+		if (bottom > rank.size()) {
+			sender.sendMessage("§cbottomが大きすぎます、エントリー数は §b"+rank.size()+" §cです");
+			return true;
+		}
 
 		Collections.sort(rank, new Comparator<Entry<String, Integer>>() {
 			public int compare(Entry<String, Integer> x, Entry<String, Integer> y) {

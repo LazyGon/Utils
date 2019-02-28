@@ -157,16 +157,11 @@ public class UuidScoreboard {
 			}
 
 			if (top > bottom) {
-				sender.sendMessage("topの値はbottomより小さくなくてはいけません");
+				sender.sendMessage("topの値はbottom以下でなくてはいけません");
 				return true;
 			}
 
-			OfflinePlayer[] Entries = Bukkit.getOfflinePlayers();
-
-			if (bottom > Entries.length-1) {
-				sender.sendMessage("§bottomが大きすぎます、エントリー数は §b"+(Entries.length-1)+" §cです");
-				return true;
-			}
+			OfflinePlayer[] AllPlayers = Bukkit.getOfflinePlayers();
 
 			Objective Obj = MainScoreboard.getObjective(args[1]);
 
@@ -177,12 +172,17 @@ public class UuidScoreboard {
 
 			Map<String, Integer> Ranking = new HashMap<String, Integer>();
 
-			for (OfflinePlayer originalentry : Entries)
+			for (OfflinePlayer originalentry : AllPlayers)
 				if(Obj.getScore(originalentry.getUniqueId().toString()).isScoreSet()){
 					Ranking.put(originalentry.getName(), Obj.getScore(originalentry.getUniqueId().toString()).getScore());
 				}
 
 			List<Entry<String, Integer>> rank = new ArrayList<Entry<String, Integer>>(Ranking.entrySet());
+
+			if (bottom > rank.size()) {
+				sender.sendMessage("§cbottomが大きすぎます、エントリー数は §b"+(rank.size())+" §cです");
+				return true;
+			}
 
 			Collections.sort(rank, new Comparator<Entry<String, Integer>>() {
 				public int compare(Entry<String, Integer> x, Entry<String, Integer> y) {
