@@ -5,9 +5,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import com.github.okocraft.lazyutils.command.Commands;
 
-public class LazyUtils extends JavaPlugin implements CommandExecutor{
+public class LazyUtils extends JavaPlugin implements CommandExecutor {
 
 	private static LazyUtils instance;
 	private Commands commands;
@@ -39,13 +40,13 @@ public class LazyUtils extends JavaPlugin implements CommandExecutor{
 	}
 
 	public static LazyUtils getInstance() {
-		if(instance == null) {
+		if (instance == null) {
 			instance = (LazyUtils) Bukkit.getPluginManager().getPlugin("LazyUtils");
 		}
 		return instance;
 	}
 
-	public LazyUtilsConfig getLazyUtilsConfig(){
+	public LazyUtilsConfig getLazyUtilsConfig() {
 		return config;
 	}
 }
