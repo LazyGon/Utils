@@ -1,12 +1,12 @@
 #
 # Configuration File of LazyUtils plugin.
 #
-# If you want use color code, use section §. 
+# If you want use color code, use section §.
 
 # Plugin Messages
-PermissionDenied: "§c権限がありません。" 
+PermissionDenied: "§c権限がありません。"
 
-# Filer utilities
+#  utilities
 HomeDirectory: "/minecraft/main/plugins/ImageMaps/images/"
 HelpMessage: "§7これらのコマンドが使用可能です。"
 DownLoadMessage: "§7ファイルがダウンロードされました。"
