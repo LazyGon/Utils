@@ -1,6 +1,6 @@
 name: LazyUtils
 version: 1.0.0
-main: lazyutils.plugin.LazyUtils
+main: com.github.okocraft.lazyutils.LazyUtils
 author: lazy_gon
 commands:
   filer:
