@@ -163,8 +163,8 @@ public class UuidScoreboard {
 
 			OfflinePlayer[] Entries = Bukkit.getOfflinePlayers();
 
-			if (bottom > Entries.length) {
-				sender.sendMessage("§bottomが大きすぎます、エントリー数は §b"+Entries.length+" §cです");
+			if (bottom > Entries.length-1) {
+				sender.sendMessage("§bottomが大きすぎます、エントリー数は §b"+(Entries.length-1)+" §cです");
 				return true;
 			}
 
