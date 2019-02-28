@@ -153,6 +153,7 @@ public class UuidScoreboard {
 
 			if (top < 1) {
 				sender.sendMessage("topが小さすぎます");
+				return true;
 			}
 
 			if (top > bottom) {
@@ -163,7 +164,8 @@ public class UuidScoreboard {
 			OfflinePlayer[] Entries = Bukkit.getOfflinePlayers();
 
 			if (bottom > Entries.length) {
-				sender.sendMessage("§bottomが大きすぎます");
+				sender.sendMessage("§bottomが大きすぎます、エントリー数は §b"+Entries.length+" §cです");
+				return true;
 			}
 
 			Objective Obj = MainScoreboard.getObjective(args[1]);
@@ -176,7 +178,9 @@ public class UuidScoreboard {
 			Map<String, Integer> Ranking = new HashMap<String, Integer>();
 
 			for (OfflinePlayer originalentry : Entries)
-				Ranking.put(originalentry.getName(), Obj.getScore(originalentry.getUniqueId().toString()).getScore());
+				if(Obj.getScore(originalentry.getUniqueId().toString()).isScoreSet()){
+					Ranking.put(originalentry.getName(), Obj.getScore(originalentry.getUniqueId().toString()).getScore());
+				}
 
 			List<Entry<String, Integer>> rank = new ArrayList<Entry<String, Integer>>(Ranking.entrySet());
 
