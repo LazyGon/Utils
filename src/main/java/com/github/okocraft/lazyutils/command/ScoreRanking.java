@@ -66,13 +66,14 @@ public class ScoreRanking {
 		Set<String> Entries = MainScoreboard.getEntries();
 
 		for (String originalentry : Entries)
-			if(Obj.getScore(originalentry).isScoreSet())
+			if (Obj.getScore(originalentry).isScoreSet())
 				Ranking.put(originalentry, Obj.getScore(originalentry).getScore());
 
-		List<Entry<String, Integer>> rank = new ArrayList<Entry<String, Integer>>(Ranking.entrySet());
+		List<Entry<String, Integer>> rank =
+				new ArrayList<Entry<String, Integer>>(Ranking.entrySet());
 
 		if (bottom > rank.size()) {
-			sender.sendMessage("§cbottomが大きすぎます、エントリー数は §b"+rank.size()+" §cです");
+			sender.sendMessage("§cbottomが大きすぎます、エントリー数は §b" + rank.size() + " §cです");
 			return true;
 		}
 
@@ -88,7 +89,8 @@ public class ScoreRanking {
 			String blank = "";
 			for (int j = 0; j < (40 - rank.get(i - 1).getKey().length()); j++)
 				blank += " ";
-			result += "§6" + i + "位： §b" + rank.get(i - 1).getKey() + blank + " §a" + rank.get(i - 1).getValue() + "\n";
+			result += "§6" + i + "位： §b" + rank.get(i - 1).getKey() + blank + " §a"
+					+ rank.get(i - 1).getValue() + "\n";
 		}
 
 		sender.sendMessage(result);

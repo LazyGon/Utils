@@ -36,21 +36,19 @@ public class Filer {
 		this.HelpMessage = config.getFilerHelpMessage();
 
 		if (args.length == 3)
-			if(args[0].equalsIgnoreCase("download"))
+			if (args[0].equalsIgnoreCase("download"))
 				return download(args[1], args[2], sender);
 
 		if (args.length == 2)
-			if(args[0].equalsIgnoreCase("remove"))
+			if (args[0].equalsIgnoreCase("remove"))
 				return remove(args[1], sender);
 
-		if(args.length == 1)
-			if(args[0].equalsIgnoreCase("list"))
+		if (args.length == 1)
+			if (args[0].equalsIgnoreCase("list"))
 				return list(sender);
 
 		return help(sender);
 	}
-
-
 
 
 
@@ -99,6 +97,7 @@ public class Filer {
 		sender.sendMessage(RemoveMessage);
 		return true;
 	}
+
 	private boolean list(CommandSender sender) {
 
 		if (sender instanceof Player && !sender.hasPermission("lazyutil.filer.list")) {
@@ -111,7 +110,7 @@ public class Filer {
 		String[] list = folder.list();
 		for (String file : list) {
 			file.replaceFirst(HomeDirectory, "");
-			result += file+"\n";
+			result += file + "\n";
 		}
 		sender.sendMessage(result);
 		return true;

@@ -18,35 +18,36 @@ import org.bukkit.scoreboard.Scoreboard;
 
 public class UuidScoreboard {
 
-	//&& (sender instanceof Player && !sender.hasPermission("lazyutil.uuidscoreboard.add") || !(sender instanceof Player))
+	// && (sender instanceof Player && !sender.hasPermission("lazyutil.uuidscoreboard.add") ||
+	// !(sender instanceof Player))
 
 	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		if (args.length > 1) {
-			if (args[0].equalsIgnoreCase("add")
-					&& (sender instanceof Player && !sender.hasPermission("lazyutil.uuidscoreboard.add")
-							|| !(sender instanceof Player))) {
+			if (args[0].equalsIgnoreCase("add") && (sender instanceof Player
+					&& !sender.hasPermission("lazyutil.uuidscoreboard.add")
+					|| !(sender instanceof Player))) {
 				sender.sendMessage("§clazyutils.uuidscoreboard.add の権限がありません");
 				return true;
-			} else if (args[0].equalsIgnoreCase("get")
-					&& (sender instanceof Player && !sender.hasPermission("lazyutil.uuidscoreboard.add")
-							|| !(sender instanceof Player))) {
+			} else if (args[0].equalsIgnoreCase("get") && (sender instanceof Player
+					&& !sender.hasPermission("lazyutil.uuidscoreboard.add")
+					|| !(sender instanceof Player))) {
 				sender.sendMessage("§clazyutils.uuidscoreboard.get の権限がありません");
 				return true;
-			} else if (args[0].equalsIgnoreCase("set")
-					&& (sender instanceof Player && !sender.hasPermission("lazyutil.uuidscoreboard.add")
-							|| !(sender instanceof Player))) {
+			} else if (args[0].equalsIgnoreCase("set") && (sender instanceof Player
+					&& !sender.hasPermission("lazyutil.uuidscoreboard.add")
+					|| !(sender instanceof Player))) {
 				sender.sendMessage("§clazyutils.uuidscoreboard.set の権限がありません");
 				return true;
-			} else if (args[0].equalsIgnoreCase("remove")
-					&& (sender instanceof Player && !sender.hasPermission("lazyutil.uuidscoreboard.add")
-							|| !(sender instanceof Player))) {
+			} else if (args[0].equalsIgnoreCase("remove") && (sender instanceof Player
+					&& !sender.hasPermission("lazyutil.uuidscoreboard.add")
+					|| !(sender instanceof Player))) {
 				sender.sendMessage("§clazyutils.uuidscoreboard.remove の権限がありません");
 				return true;
-			} else if (args[0].equalsIgnoreCase("ranking")
-					&& (sender instanceof Player && !sender.hasPermission("lazyutil.uuidscoreboard.ranking")
-							|| !(sender instanceof Player))) {
+			} else if (args[0].equalsIgnoreCase("ranking") && (sender instanceof Player
+					&& !sender.hasPermission("lazyutil.uuidscoreboard.ranking")
+					|| !(sender instanceof Player))) {
 				sender.sendMessage("§clazyutils.uuidscoreboard.ranking の権限がありません");
 				return true;
 			}
@@ -67,8 +68,9 @@ public class UuidScoreboard {
 			return true;
 		}
 
-		if (!(args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("get") || args[0].equalsIgnoreCase("set")
-				|| args[0].equalsIgnoreCase("ranking") || args[0].equalsIgnoreCase("remove"))) {
+		if (!(args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("get")
+				|| args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("ranking")
+				|| args[0].equalsIgnoreCase("remove"))) {
 			sender.sendMessage("§c最初の引数が間違えています");
 			return true;
 		}
@@ -173,14 +175,16 @@ public class UuidScoreboard {
 			Map<String, Integer> Ranking = new HashMap<String, Integer>();
 
 			for (OfflinePlayer originalentry : AllPlayers)
-				if(Obj.getScore(originalentry.getUniqueId().toString()).isScoreSet()){
-					Ranking.put(originalentry.getName(), Obj.getScore(originalentry.getUniqueId().toString()).getScore());
+				if (Obj.getScore(originalentry.getUniqueId().toString()).isScoreSet()) {
+					Ranking.put(originalentry.getName(),
+							Obj.getScore(originalentry.getUniqueId().toString()).getScore());
 				}
 
-			List<Entry<String, Integer>> rank = new ArrayList<Entry<String, Integer>>(Ranking.entrySet());
+			List<Entry<String, Integer>> rank =
+					new ArrayList<Entry<String, Integer>>(Ranking.entrySet());
 
 			if (bottom > rank.size()) {
-				sender.sendMessage("§cbottomが大きすぎます、エントリー数は §b"+(rank.size())+" §cです");
+				sender.sendMessage("§cbottomが大きすぎます、エントリー数は §b" + (rank.size()) + " §cです");
 				return true;
 			}
 
@@ -196,8 +200,8 @@ public class UuidScoreboard {
 				String blank = "";
 				for (int j = 0; j < (16 - rank.get(i - 1).getKey().length()); j++)
 					blank += " ";
-				result += "§6" + i + "位： §b" + rank.get(i - 1).getKey() + blank + " §a" + rank.get(i - 1).getValue()
-						+ "\n";
+				result += "§6" + i + "位： §b" + rank.get(i - 1).getKey() + blank + " §a"
+						+ rank.get(i - 1).getValue() + "\n";
 			}
 
 			sender.sendMessage(result);
