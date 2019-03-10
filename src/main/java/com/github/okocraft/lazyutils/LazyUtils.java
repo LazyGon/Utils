@@ -3,10 +3,7 @@ package com.github.okocraft.lazyutils;
 import com.github.okocraft.lazyutils.command.CommandScoreRanking;
 import com.github.okocraft.lazyutils.command.CommandUuidScoreboard;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.sql.SQLException;
 
 public class LazyUtils extends JavaPlugin {
 
