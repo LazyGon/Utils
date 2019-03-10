@@ -31,17 +31,17 @@ public class UuidScoreboard {
 				sender.sendMessage("§clazyutils.uuidscoreboard.add の権限がありません");
 				return true;
 			} else if (args[0].equalsIgnoreCase("get") && (sender instanceof Player
-					&& !sender.hasPermission("lazyutil.uuidscoreboard.add")
+					&& !sender.hasPermission("lazyutil.uuidscoreboard.get")
 					|| !(sender instanceof Player))) {
 				sender.sendMessage("§clazyutils.uuidscoreboard.get の権限がありません");
 				return true;
 			} else if (args[0].equalsIgnoreCase("set") && (sender instanceof Player
-					&& !sender.hasPermission("lazyutil.uuidscoreboard.add")
+					&& !sender.hasPermission("lazyutil.uuidscoreboard.set")
 					|| !(sender instanceof Player))) {
 				sender.sendMessage("§clazyutils.uuidscoreboard.set の権限がありません");
 				return true;
 			} else if (args[0].equalsIgnoreCase("remove") && (sender instanceof Player
-					&& !sender.hasPermission("lazyutil.uuidscoreboard.add")
+					&& !sender.hasPermission("lazyutil.uuidscoreboard.remove")
 					|| !(sender instanceof Player))) {
 				sender.sendMessage("§clazyutils.uuidscoreboard.remove の権限がありません");
 				return true;
