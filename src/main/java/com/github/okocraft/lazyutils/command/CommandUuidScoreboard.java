@@ -8,80 +8,78 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.github.okocraft.lazyutils.LazyUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
-public class UuidScoreboard {
+public class CommandUuidScoreboard implements CommandExecutor {
 
 	// && (sender instanceof Player && !sender.hasPermission("lazyutil.uuidscoreboard.add") ||
 	// !(sender instanceof Player))
 
-	@SuppressWarnings("deprecation")
+
+	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		if (args.length > 1) {
-			if (args[0].equalsIgnoreCase("add") && (sender instanceof Player
-					&& !sender.hasPermission("lazyutil.uuidscoreboard.add")
-					|| !(sender instanceof Player))) {
+			if (args[0].equalsIgnoreCase("add") &&
+					(!(sender instanceof Player) || !sender.hasPermission("lazyutil.uuidscoreboard.add"))) {
 				sender.sendMessage("§clazyutils.uuidscoreboard.add の権限がありません");
-				return true;
-			} else if (args[0].equalsIgnoreCase("get") && (sender instanceof Player
-					&& !sender.hasPermission("lazyutil.uuidscoreboard.get")
-					|| !(sender instanceof Player))) {
+				return false;
+			} else if (args[0].equalsIgnoreCase("get") &&
+					(!(sender instanceof Player) || !sender.hasPermission("lazyutil.uuidscoreboard.get"))) {
 				sender.sendMessage("§clazyutils.uuidscoreboard.get の権限がありません");
-				return true;
-			} else if (args[0].equalsIgnoreCase("set") && (sender instanceof Player
-					&& !sender.hasPermission("lazyutil.uuidscoreboard.set")
-					|| !(sender instanceof Player))) {
+				return false;
+			} else if (args[0].equalsIgnoreCase("set") &&
+					(!(sender instanceof Player) || !sender.hasPermission("lazyutil.uuidscoreboard.set"))) {
 				sender.sendMessage("§clazyutils.uuidscoreboard.set の権限がありません");
-				return true;
-			} else if (args[0].equalsIgnoreCase("remove") && (sender instanceof Player
-					&& !sender.hasPermission("lazyutil.uuidscoreboard.remove")
-					|| !(sender instanceof Player))) {
+				return false;
+			} else if (args[0].equalsIgnoreCase("remove") &&
+					(!(sender instanceof Player) || !sender.hasPermission("lazyutil.uuidscoreboard.remove"))) {
 				sender.sendMessage("§clazyutils.uuidscoreboard.remove の権限がありません");
-				return true;
-			} else if (args[0].equalsIgnoreCase("ranking") && (sender instanceof Player
-					&& !sender.hasPermission("lazyutil.uuidscoreboard.ranking")
-					|| !(sender instanceof Player))) {
+				return false;
+			} else if (args[0].equalsIgnoreCase("ranking") &&
+					(!(sender instanceof Player) || !sender.hasPermission("lazyutil.uuidscoreboard.ranking"))) {
 				sender.sendMessage("§clazyutils.uuidscoreboard.ranking の権限がありません");
-				return true;
+				return false;
 			}
 		}
 
 		if (!(args.length == 4 || args.length == 3)) {
 			sender.sendMessage("§c引数の数を間違えています。引数の数は3つか4つである必要があります");
-			return true;
+			return false;
 		}
 
 		if (args.length != 3 && args[0].equalsIgnoreCase("get")) {
 			sender.sendMessage("§c引数の数を間違えています。getの場合は引数は3つです");
-			return true;
+			return false;
 		}
 
 		if (args.length != 4 && (!args[0].equalsIgnoreCase("get"))) {
 			sender.sendMessage("§c引数の数を間違えています。get以外の場合は引数は4つです");
-			return true;
+			return false;
 		}
 
 		if (!(args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("get")
 				|| args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("ranking")
 				|| args[0].equalsIgnoreCase("remove"))) {
-			sender.sendMessage("§c最初の引数が間違えています");
-			return true;
+			sender.sendMessage("§c最初の引数が間違っています");
+			return false;
 		}
 
-		Scoreboard MainScoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+		Scoreboard mainScoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
 
 		if (!args[0].equalsIgnoreCase("ranking")) {
 			if (args.length == 4) {
-				if (!Commands.isInt(args[3])) {
+				if (!LazyUtils.isInt(args[3])) {
 					sender.sendMessage("§cnumberは整数である必要があります");
-					return true;
+					return false;
 				}
 			}
 
@@ -89,65 +87,65 @@ public class UuidScoreboard {
 
 			if (!player.hasPlayedBefore()) {
 				sender.sendMessage("§b" + args[1].toLowerCase() + " §cのUUIDは見つかりませんでした");
-				return true;
+				return false;
 			}
 
-			String PlayerUuid = player.getUniqueId().toString();
+			String playerUuid = player.getUniqueId().toString();
 
-			Objective Obj = MainScoreboard.getObjective(args[2]);
+			Objective obj = mainScoreboard.getObjective(args[2]);
 
-			if (Obj == null) {
+			if (obj == null) {
 				sender.sendMessage("§b" + args[2] + " §cというobjectiveは見つかりませんでした");
-				return true;
+				return false;
 			}
 
-			String FinishMessage = "";
-			int GivenScore = (args.length == 4) ? Integer.parseInt(args[3]) : 0;
-			int CurrentScore = Obj.getScore(player.getUniqueId().toString()).getScore();
+			String finishMessage = "";
+			int givenScore = (args.length == 4) ? Integer.parseInt(args[3]) : 0;
+			int currentScore = obj.getScore(player.getUniqueId().toString()).getScore();
 
 			if (args[0].equalsIgnoreCase("add")) {
-				Obj.getScore(PlayerUuid).setScore(GivenScore + CurrentScore);
-				FinishMessage = PlayerUuid + " の [" + args[2] + "] を " + GivenScore + " 加算しました（現在 "
-						+ (GivenScore + CurrentScore) + "）";
-				sender.sendMessage(FinishMessage);
+				obj.getScore(playerUuid).setScore(givenScore + currentScore);
+				finishMessage = playerUuid + " の [" + args[2] + "] を " + givenScore + " 加算しました（現在 "
+						+ (givenScore + currentScore) + "）";
+				sender.sendMessage(finishMessage);
 				return true;
 			}
 
 			if (args[0].equalsIgnoreCase("get")) {
-				FinishMessage = PlayerUuid + " は [" + args[2] + "] を " + CurrentScore + " 持っています";
-				sender.sendMessage(FinishMessage);
+				finishMessage = playerUuid + " は [" + args[2] + "] を " + currentScore + " 持っています";
+				sender.sendMessage(finishMessage);
 				return true;
 			}
 
 			if (args[0].equalsIgnoreCase("set")) {
-				Obj.getScore(PlayerUuid).setScore(GivenScore);
-				FinishMessage = PlayerUuid + " の [" + args[2] + "] を " + GivenScore + " に設定しました";
-				sender.sendMessage(FinishMessage);
+				obj.getScore(playerUuid).setScore(givenScore);
+				finishMessage = playerUuid + " の [" + args[2] + "] を " + givenScore + " に設定しました";
+				sender.sendMessage(finishMessage);
 				return true;
 			}
 
 			if (args[0].equalsIgnoreCase("remove")) {
-				Obj.getScore(PlayerUuid).setScore(CurrentScore - GivenScore);
-				FinishMessage = PlayerUuid + " の [" + args[2] + "] を " + GivenScore + " 減算しました（現在 "
-						+ (CurrentScore - GivenScore) + "）";
-				sender.sendMessage(FinishMessage);
+				obj.getScore(playerUuid).setScore(currentScore - givenScore);
+				finishMessage = playerUuid + " の [" + args[2] + "] を " + givenScore + " 減算しました（現在 "
+						+ (currentScore - givenScore) + "）";
+				sender.sendMessage(finishMessage);
 				return true;
 			}
 		} else if (args[0].equalsIgnoreCase("ranking")) {
 
-			if (!Commands.isInt(args[2]) && !Commands.isInt(args[3])) {
+			if (!LazyUtils.isInt(args[2]) && !LazyUtils.isInt(args[3])) {
 				sender.sendMessage("§ctopとbottomの値は正の整数である必要があります");
-				return true;
+				return false;
 			}
 
-			if (!Commands.isInt(args[2])) {
+			if (!LazyUtils.isInt(args[2])) {
 				sender.sendMessage("§ctopの正の値は整数である必要があります");
-				return true;
+				return false;
 			}
 
-			if (!Commands.isInt(args[3])) {
+			if (!LazyUtils.isInt(args[3])) {
 				sender.sendMessage("§cbottomの正の値は整数である必要があります");
-				return true;
+				return false;
 			}
 
 			int top = Integer.parseInt(args[2]);
@@ -155,37 +153,37 @@ public class UuidScoreboard {
 
 			if (top < 1) {
 				sender.sendMessage("topが小さすぎます");
-				return true;
+				return false;
 			}
 
 			if (top > bottom) {
 				sender.sendMessage("topの値はbottom以下でなくてはいけません");
-				return true;
+				return false;
 			}
 
-			OfflinePlayer[] AllPlayers = Bukkit.getOfflinePlayers();
+			OfflinePlayer[] allPlayers = Bukkit.getOfflinePlayers();
 
-			Objective Obj = MainScoreboard.getObjective(args[1]);
+			Objective obj = mainScoreboard.getObjective(args[1]);
 
-			if (Obj == null) {
+			if (obj == null) {
 				sender.sendMessage("§b" + args[1] + " §7という名前のobjectiveは見つかりませんでした");
-				return true;
+				return false;
 			}
 
-			Map<String, Integer> Ranking = new HashMap<String, Integer>();
+			Map<String, Integer> ranking = new HashMap<String, Integer>();
 
-			for (OfflinePlayer originalentry : AllPlayers)
-				if (Obj.getScore(originalentry.getUniqueId().toString()).isScoreSet()) {
-					Ranking.put(originalentry.getName(),
-							Obj.getScore(originalentry.getUniqueId().toString()).getScore());
+			for (OfflinePlayer originalentry : allPlayers)
+				if (obj.getScore(originalentry.getUniqueId().toString()).isScoreSet()) {
+					ranking.put(originalentry.getName(),
+							obj.getScore(originalentry.getUniqueId().toString()).getScore());
 				}
 
 			List<Entry<String, Integer>> rank =
-					new ArrayList<Entry<String, Integer>>(Ranking.entrySet());
+					new ArrayList<Entry<String, Integer>>(ranking.entrySet());
 
 			if (bottom > rank.size()) {
 				sender.sendMessage("§cbottomが大きすぎます、エントリー数は §b" + (rank.size()) + " §cです");
-				return true;
+				return false;
 			}
 
 			Collections.sort(rank, new Comparator<Entry<String, Integer>>() {
