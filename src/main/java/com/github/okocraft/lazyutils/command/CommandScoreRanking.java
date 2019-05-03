@@ -9,36 +9,39 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.github.okocraft.lazyutils.LazyUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
-public class ScoreRanking {
+public class CommandScoreRanking implements CommandExecutor {
 
+	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		Scoreboard MainScoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+		Scoreboard mainScoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
 
 		if (!(args.length == 3)) {
 			sender.sendMessage("§c引数の数は3つです");
-			return true;
+			return false;
 		}
 
-		if (!Commands.isInt(args[1]) && !Commands.isInt(args[2])) {
+		if (!LazyUtils.isInt(args[1]) && !LazyUtils.isInt(args[2])) {
 			sender.sendMessage("§ctopとbottomの値は正の整数である必要があります");
-			return true;
+			return false;
 		}
 
-		if (!Commands.isInt(args[1])) {
+		if (!LazyUtils.isInt(args[1])) {
 			sender.sendMessage("§ctopの正の値は整数である必要があります");
-			return true;
+			return false;
 		}
 
-		if (!Commands.isInt(args[2])) {
+		if (!LazyUtils.isInt(args[2])) {
 			sender.sendMessage("§cbottomの正の値は整数である必要があります");
-			return true;
+			return false;
 		}
 
 		int top = Integer.parseInt(args[1]);
@@ -46,35 +49,35 @@ public class ScoreRanking {
 
 		if (top < 1) {
 			sender.sendMessage("topが小さすぎます");
-			return true;
+			return false;
 		}
 
 		if (top > bottom) {
 			sender.sendMessage("topの値はbottomより小さくなくてはいけません");
-			return true;
+			return false;
 		}
 
-		Objective Obj = MainScoreboard.getObjective(args[0]);
+		Objective Obj = mainScoreboard.getObjective(args[0]);
 
 		if (Obj == null) {
 			sender.sendMessage("§b" + args[0] + " §7という名前のobjectiveは見つかりませんでした");
-			return true;
+			return false;
 		}
 
-		Map<String, Integer> Ranking = new HashMap<String, Integer>();
+		Map<String, Integer> ranking = new HashMap<String, Integer>();
 
-		Set<String> Entries = MainScoreboard.getEntries();
+		Set<String> entries = mainScoreboard.getEntries();
 
-		for (String originalentry : Entries)
+		for (String originalentry : entries)
 			if (Obj.getScore(originalentry).isScoreSet())
-				Ranking.put(originalentry, Obj.getScore(originalentry).getScore());
+				ranking.put(originalentry, Obj.getScore(originalentry).getScore());
 
 		List<Entry<String, Integer>> rank =
-				new ArrayList<Entry<String, Integer>>(Ranking.entrySet());
+				new ArrayList<Entry<String, Integer>>(ranking.entrySet());
 
 		if (bottom > rank.size()) {
 			sender.sendMessage("§cbottomが大きすぎます、エントリー数は §b" + rank.size() + " §cです");
-			return true;
+			return false;
 		}
 
 		Collections.sort(rank, new Comparator<Entry<String, Integer>>() {

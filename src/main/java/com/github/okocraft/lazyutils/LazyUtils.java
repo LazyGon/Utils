@@ -1,41 +1,40 @@
 package com.github.okocraft.lazyutils;
 
+import com.github.okocraft.lazyutils.command.CommandScoreRanking;
+import com.github.okocraft.lazyutils.command.CommandUuidScoreboard;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.github.okocraft.lazyutils.command.Commands;
-
-public class LazyUtils extends JavaPlugin implements CommandExecutor {
+public class LazyUtils extends JavaPlugin {
 
 	private static LazyUtils instance;
-	private Commands commands;
 	private LazyUtilsConfig config;
 
 	@Override
 	public void onEnable() {
 		super.onEnable();
 
-		commands = new Commands();
 		config = new LazyUtilsConfig();
 
-		getCommand("uuidscoreboard").setExecutor(this);
-		getCommand("scoreranking").setExecutor(this);
+		getCommand("uuidscoreboard").setExecutor(new CommandUuidScoreboard());
+		getCommand("scoreranking").setExecutor(new CommandScoreRanking());
 
 		this.saveDefaultConfig();
 		this.getConfig().options().copyDefaults(true);
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		return commands.onCommand(sender, command, label, args);
-	}
-
-	@Override
 	public void onDisable() {
 		super.onDisable();
+	}
+
+	public static boolean isInt(String arg) {
+		try{
+			Integer.parseInt(arg);
+			return true;
+		}catch (NumberFormatException e){
+			return false;
+		}
 	}
 
 	public static LazyUtils getInstance() {
