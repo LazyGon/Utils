@@ -179,7 +179,6 @@ public class Repair {
                     result = Math.pow(result, levelModifier);
                     break;
                 }
-                sender.sendMessage("" + result);
             }
 
             return result;
