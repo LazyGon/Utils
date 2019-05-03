@@ -1,11 +1,11 @@
-MaxCost: 500000
+MaxCost: 50000
 ItemCost:
   DEFAULT: 10000
   DIAMOND_SWORD: 10000
 Enchantments:
   DAMAGE_ALL:
     Enabled: true
-    Cost: 1000
+    Cost: 100
     # calculation will be performed number of level times.
     # example: level 3 -> (cost*2)*2)*2
     LevelModifier: 2
@@ -15,216 +15,216 @@ Enchantments:
 
   ARROW_DAMAGE:
     Enabled: true
-    Cost: 1000
+    Cost: 100
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   ARROW_FIRE:
     Enabled: true
-    Cost: 8000
+    Cost: 800
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   ARROW_INFINITE:
     Enabled: true
-    Cost: 16000
+    Cost: 1600
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   ARROW_KNOCKBACK:
     Enabled: true
-    Cost: 8000
+    Cost: 800
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   BINDING_CURSE:
     Enabled: true
-    Cost: 16000
+    Cost: 1600
     LevelModifier: 2
     LevelModifierOperation: 'DIVIDE'
 
   CHANNELING:
     Enabled: true
-    Cost: 16000
+    Cost: 1600
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   DAMAGE_ARTHROPODS:
     Enabled: true
-    Cost: 1000
+    Cost: 100
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   DAMAGE_UNDEAD:
     Enabled: true
-    Cost: 1000
+    Cost: 100
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   DEPTH_STRIDER:
     Enabled: true
-    Cost: 4000
+    Cost: 400
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   DIG_SPEED:
     Enabled: true
-    Cost: 1000
+    Cost: 100
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   DURABILITY:
     Enabled: true
-    Cost: 4000
+    Cost: 400
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   FIRE_ASPECT:
     Enabled: true
-    Cost: 8000
+    Cost: 800
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   FROST_WALKER:
     Enabled: true
-    Cost: 8000
+    Cost: 800
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   IMPALING:
     Enabled: true
-    Cost: 1000
+    Cost: 100
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   KNOCKBACK:
     Enabled: true
-    Cost: 8000
+    Cost: 800
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   LOOT_BONUS_BLOCKS:
     Enabled: true
-    Cost: 4000
+    Cost: 400
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   LOOT_BONUS_MOBS:
     Enabled: true
-    Cost: 4000
+    Cost: 400
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   LOYALTY:
     Enabled: true
-    Cost: 4000
+    Cost: 400
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   LUCK:
     Enabled: true
-    Cost: 4000
+    Cost: 400
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   LURE:
     Enabled: true
-    Cost: 4000
+    Cost: 400
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   MENDING:
     Enabled: true
-    Cost: 16000
+    Cost: 1600
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
 #  MULTISHOT:
 #    Enabled: true
-#    Cost: 1000
+#    Cost: 100
 #    LevelModifier: 2
 #    LevelModifierOperation: 'MULTIPLY'
 
   OXYGEN:
     Enabled: true
-    Cost: 4000
+    Cost: 400
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
 #  PIERCING:
 #    Enabled: true
-#    Cost: 2000
+#    Cost: 200
 #    LevelModifier: 2
 #    LevelModifierOperation: 'MULTIPLY'
 
   PROTECTION_ENVIRONMENTAL:
     Enabled: true
-    Cost: 2000
+    Cost: 200
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   PROTECTION_EXPLOSIONS:
     Enabled: true
-    Cost: 2000
+    Cost: 200
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   PROTECTION_FALL:
     Enabled: true
-    Cost: 2000
+    Cost: 200
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   PROTECTION_FIRE:
     Enabled: true
-    Cost: 2000
+    Cost: 200
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   PROTECTION_PROJECTILE:
     Enabled: true
-    Cost: 2000
+    Cost: 200
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
 #  QUICK_CHARGE:
 #    Enabled: true
-#    Cost: 2000
+#    Cost: 200
 #    LevelModifier: 2
 #    LevelModifierOperation: 'MULTIPLY'
 
   RIPTIDE:
     Enabled: true
-    Cost: 4000
+    Cost: 400
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   SILK_TOUCH:
     Enabled: true
-    Cost: 16000
+    Cost: 1600
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   SWEEPING_EDGE:
     Enabled: true
-    Cost: 4000
+    Cost: 400
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   THORNS:
     Enabled: true
-    Cost: 4000
+    Cost: 400
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
 
   VANISHING_CURSE:
     Enabled: true
-    Cost: 16000
+    Cost: 1600
     LevelModifier: 2
     LevelModifierOperation: 'DIVIDE'
 
   WATER_WORKER:
     Enabled: true
-    Cost: 4000
+    Cost: 400
     LevelModifier: 2
     LevelModifierOperation: 'MULTIPLY'
