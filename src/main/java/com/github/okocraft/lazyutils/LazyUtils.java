@@ -10,6 +10,7 @@ import net.milkbowl.vault.economy.Economy;
 import com.github.okocraft.lazyutils.command.Commands;
 import com.github.okocraft.lazyutils.command.LazyUtilsTabCompleter;
 import com.github.okocraft.lazyutils.command.Spawner;
+import com.github.okocraft.lazyutils.listener.SaplingAutoReplace;
 
 public class LazyUtils extends JavaPlugin {
 
@@ -17,6 +18,7 @@ public class LazyUtils extends JavaPlugin {
 	private LazyUtilsConfig config;
 	private CustomConfig repairCostConfig;
 	private CustomConfig prefixData;
+	private CustomConfig publicTreeFarmConfig;
 	private Economy economy;
 	private boolean isEconomyEnabled = true;
 
@@ -30,7 +32,9 @@ public class LazyUtils extends JavaPlugin {
 
 		repairCostConfig = new CustomConfig(this, "RepairCost.yml");
 		prefixData = new CustomConfig(this, "PrefixData.yml");
+		publicTreeFarmConfig = new CustomConfig(this, "PublicTreeFarm.yml");
 		new Spawner(this);
+		new SaplingAutoReplace(this);
 		new Commands();
 		new LazyUtilsTabCompleter();
 		config = new LazyUtilsConfig();
@@ -38,6 +42,7 @@ public class LazyUtils extends JavaPlugin {
 		this.saveDefaultConfig();
 		repairCostConfig.saveDefaultConfig();
 		prefixData.saveDefaultConfig();
+		publicTreeFarmConfig.saveDefaultConfig();
 		this.getConfig().options().copyDefaults(true);
 	}
 
@@ -76,6 +81,10 @@ public class LazyUtils extends JavaPlugin {
 
 	public CustomConfig getPrefixData(){
 		return prefixData;
+	}
+
+	public CustomConfig getPublicTreeFarmConfig(){
+		return publicTreeFarmConfig;
 	}
 
 	public boolean isEconomyEnabled(){
