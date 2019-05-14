@@ -32,6 +32,11 @@ commands:
     description: get spawner
     permission: lazyutils.getspawner
     permission-message: '§c<permission> の権限がありません'
+  oldplayermoney:
+    description: see old players money total.
+    aliases: [oldmoney, opm]
+    permission: lazyutils.oldplayermoney
+    permission-message: '§c<permission> の権限がありません'
 
 permissions:
   lazyutils.*:
@@ -113,3 +118,6 @@ permissions:
   lazyutils.costrepair:
     description: Permission for command /costrepair [confirm]
     default: true
+  lazyutils.oldplayermoney:
+    description: Permission for command /oldplayermoney [confirm]
+    default: op

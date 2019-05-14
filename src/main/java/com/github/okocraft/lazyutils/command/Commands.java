@@ -1,6 +1,9 @@
 package com.github.okocraft.lazyutils.command;
 
+import java.util.stream.Stream;
+
 import com.github.okocraft.lazyutils.LazyUtils;
+import com.google.common.primitives.Longs;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -8,6 +11,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import net.milkbowl.vault.economy.Economy;
 
 public class Commands implements CommandExecutor {
 
@@ -24,6 +29,7 @@ public class Commands implements CommandExecutor {
 		instance.getCommand("scoreranking").setExecutor(this);
 		instance.getCommand("costrepair").setExecutor(this);
 		instance.getCommand("getspawner").setExecutor(this);
+		instance.getCommand("oldplayermoney").setExecutor(this);
 	}
 
 	@Override
@@ -39,7 +45,7 @@ public class Commands implements CommandExecutor {
 		case "getspawner":
 			if (!hasPermission(sender, "lazyutils." + commandName))
 				return false;
-			if (args.length != 2){
+			if (args.length != 2) {
 				return errorOccured(sender, "§c引数の数は2つです。");
 			}
 			int amount = 1;
@@ -67,8 +73,31 @@ public class Commands implements CommandExecutor {
 			if (!hasPermission(sender, "lazyutils." + commandName))
 				return false;
 			return Repair.onCommand(sender, command, label, args);
+		case "oldplayermoney":
+			if (!hasPermission(sender, "lazyutils." + commandName))
+				return false;
+			return seeOldPlayerMoney(sender, command, label, args);
 		}
 		return false;
+	}
+
+	private boolean seeOldPlayerMoney(CommandSender sender, Command command, String label, String[] args) {
+
+		Economy econ = LazyUtils.getInstance().getEconomy();
+
+		if (args.length == 0)
+			return errorOccured(sender, "第一引数に日数を入力してください。");
+
+		Long day = Longs.tryParse(args[0]);
+		if (day == null)
+			return errorOccured(sender, "第一引数の日数は数字を入力してください。");
+
+		double oldPlayerMoneyTotal = Stream.of(Bukkit.getOfflinePlayers()).parallel()
+				.filter(OfflinePlayer::hasPlayedBefore)
+				.filter(player -> (System.currentTimeMillis() - player.getLastPlayed()) / (1000 * 3600 * 24) > day)
+				.mapToDouble(econ::getBalance).filter(number -> number > 2000).map(number -> number - 2000).sum();
+		sender.sendMessage(oldPlayerMoneyTotal + "");
+		return true;
 	}
 
 	/**
@@ -82,39 +111,46 @@ public class Commands implements CommandExecutor {
 	 */
 	@SuppressWarnings("deprecation")
 	private boolean setSuffix(CommandSender sender, Command command, String label, String[] args) {
-		
-		if (sender.hasPermission("lazyutils.suffix.other")){
-			if (args.length != 2) return errorOccured(sender, "§c引数は2つです。");
+
+		if (sender.hasPermission("lazyutils.suffix.other")) {
+			if (args.length != 2)
+				return errorOccured(sender, "§c引数は2つです。");
 
 			OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
-			if (!offlinePlayer.hasPlayedBefore()) return errorOccured(sender, "§cそのプレイヤーはログインしたことがありません。");
+			if (!offlinePlayer.hasPlayedBefore())
+				return errorOccured(sender, "§cそのプレイヤーはログインしたことがありません。");
 
-			if (args[1].equalsIgnoreCase("remove")){
+			if (args[1].equalsIgnoreCase("remove")) {
 				String dispatchedCommand = "lp user " + offlinePlayer.getName() + " meta removesuffix 10";
 				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), dispatchedCommand);
 				return true;
 			}
 
-			if (args[1].matches(".*&k.*")) return errorOccured(sender, "§c&kは使用できません。");
+			if (args[1].matches(".*&k.*"))
+				return errorOccured(sender, "§c&kは使用できません。");
 			String newSuffix = args[1].replaceAll("&", "§");
-			if (newSuffix.replaceAll("§.", "").length() != 1) return errorOccured(sender, "§c文字数はカラーコードと、それを除いた1文字だけです");
+			if (newSuffix.replaceAll("§.", "").length() != 1)
+				return errorOccured(sender, "§c文字数はカラーコードと、それを除いた1文字だけです");
 
 			String dispatchedCommand = "lp user " + offlinePlayer.getName() + " meta setsuffix 10 " + newSuffix;
 			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), dispatchedCommand);
 
 			return true;
 		} else {
-			if (args.length != 1) return errorOccured(sender, "§c引数は1つです。");
+			if (args.length != 1)
+				return errorOccured(sender, "§c引数は1つです。");
 
-			if (args[0].equalsIgnoreCase("remove")){
+			if (args[0].equalsIgnoreCase("remove")) {
 				String dispatchedCommand = "lp user " + sender.getName() + " meta removesuffix 10";
 				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), dispatchedCommand);
 				return true;
 			}
 
-			if (args[0].matches(".*&k.*")) return errorOccured(sender, "§c&kは使用できません。");
+			if (args[0].matches(".*&k.*"))
+				return errorOccured(sender, "§c&kは使用できません。");
 			String newSuffix = args[0].replaceAll("&", "§");
-			if (newSuffix.replaceAll("§.", "").length() != 1) return errorOccured(sender, "§c文字数はカラーコードと、それを除いた1文字だけです");
+			if (newSuffix.replaceAll("§.", "").length() != 1)
+				return errorOccured(sender, "§c文字数はカラーコードと、それを除いた1文字だけです");
 
 			String dispatchedCommand = "lp user " + sender.getName() + " meta setsuffix 10 " + newSuffix;
 			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), dispatchedCommand);
