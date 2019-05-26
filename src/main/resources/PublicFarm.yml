@@ -1,3 +1,11 @@
+
+PlantAutoReplaceEnebledWorlds:
+  - public_facility
+
+
+
+
+
 WorldForRelativeLocation: 'lobby_5'
 RelativeLocationBase:
   x: 0

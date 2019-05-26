@@ -30,6 +30,7 @@ public class Commands implements CommandExecutor {
 		instance.getCommand("costrepair").setExecutor(this);
 		instance.getCommand("getspawner").setExecutor(this);
 		instance.getCommand("oldplayermoney").setExecutor(this);
+		instance.getCommand("moreunbreaking").setExecutor(this);
 	}
 
 	@Override
@@ -77,6 +78,10 @@ public class Commands implements CommandExecutor {
 			if (!hasPermission(sender, "lazyutils." + commandName))
 				return false;
 			return seeOldPlayerMoney(sender, command, label, args);
+		case "moreunbreaking":
+			if (!hasPermission(sender, "lazyutils." + commandName))
+				return false;
+			return MoreUnbreaking.addUnbreaking((Player) sender);
 		}
 		return false;
 	}

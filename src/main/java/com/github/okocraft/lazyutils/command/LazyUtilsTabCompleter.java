@@ -70,7 +70,7 @@ public class LazyUtilsTabCompleter implements TabCompleter {
 
     private List<String> onTabCompleteSuffix(CommandSender sender, List<String> resultList, String[] args) {
         if (sender.hasPermission("lazyutils.suffix.other")) {
-            List<String> playerList = Stream.of(Bukkit.getOfflinePlayers()).parallel().map(OfflinePlayer::getName)
+            List<String> playerList = Stream.of(Bukkit.getOfflinePlayers()).map(OfflinePlayer::getName)
                     .collect(Collectors.toList());
             if (args.length == 1) {
                 return StringUtil.copyPartialMatches(args[0], playerList, resultList);
@@ -112,11 +112,10 @@ public class LazyUtilsTabCompleter implements TabCompleter {
         if (obj == null)
             return resultList;
 
-        long objEntryAmount = mainScoreboard.getEntries().stream().parallel()
-                .filter(entry -> obj.getScore(entry).isScoreSet()).sequential().count();
+        long objEntryAmount = mainScoreboard.getEntries().size();
 
         if (args.length == 2) {
-            List<String> objEntryAmountString = LongStream.range(1, objEntryAmount + 1).boxed().parallel()
+            List<String> objEntryAmountString = LongStream.rangeClosed(1, objEntryAmount).boxed()
                     .map(String::valueOf).collect(Collectors.toList());
             return StringUtil.copyPartialMatches(args[1], resultList, objEntryAmountString);
         }
@@ -126,7 +125,7 @@ public class LazyUtilsTabCompleter implements TabCompleter {
             return resultList;
 
         if (args.length == 3) {
-            List<String> objEntryAmountString = LongStream.range(top, objEntryAmount + 1).boxed().parallel()
+            List<String> objEntryAmountString = LongStream.rangeClosed(top, objEntryAmount).boxed()
                     .map(String::valueOf).collect(Collectors.toList());
             return StringUtil.copyPartialMatches(args[2], objEntryAmountString, resultList);
         }
@@ -159,7 +158,7 @@ public class LazyUtilsTabCompleter implements TabCompleter {
 
         if (args.length == 2) {
             if (sender.hasPermission("lazyutils.uniqueprefix.other")) {
-                allPlayers = Stream.of(Bukkit.getOfflinePlayers()).parallel().map(OfflinePlayer::getName)
+                allPlayers = Stream.of(Bukkit.getOfflinePlayers()).map(OfflinePlayer::getName)
                         .collect(Collectors.toList());
                 return StringUtil.copyPartialMatches(args[1], allPlayers, resultList);
 
@@ -190,7 +189,7 @@ public class LazyUtilsTabCompleter implements TabCompleter {
                     .getStringList("Players." + player.getUniqueId().toString());
             if (prefixList.size() == 0)
                 return resultList;
-            List<String> prefixNumberList = IntStream.range(1, prefixList.size()).boxed().parallel()
+            List<String> prefixNumberList = IntStream.range(1, prefixList.size()).boxed()
                     .map(String::valueOf).collect(Collectors.toList());
             prefixList.addAll(prefixNumberList);
             return StringUtil.copyPartialMatches(input, prefixList, resultList);
@@ -200,7 +199,7 @@ public class LazyUtilsTabCompleter implements TabCompleter {
                     .getStringList("Players." + player.getUniqueId().toString());
             if (removedPrefixList.size() == 0)
                 return resultList;
-            List<String> removedPrefixNumberList = IntStream.range(1, removedPrefixList.size()).boxed().parallel()
+            List<String> removedPrefixNumberList = IntStream.range(1, removedPrefixList.size()).boxed()
                     .map(String::valueOf).collect(Collectors.toList());
             removedPrefixList.addAll(removedPrefixNumberList);
             return StringUtil.copyPartialMatches(input, removedPrefixList, resultList);
@@ -262,17 +261,10 @@ public class LazyUtilsTabCompleter implements TabCompleter {
                 Objective obj = mainScoreboard.getObjective(args[1]);
                 if (obj == null)
                     return resultList;
-                long entrySize = mainScoreboard.getEntries().stream().parallel().filter(entry -> {
-                    try {
-                        UUID.fromString(entry);
-                        return true;
-                    } catch (IllegalArgumentException e) {
-                        return false;
-                    }
-                }).filter(entry -> obj.getScore(entry).isScoreSet()).sequential().count();
+                long entrySize = mainScoreboard.getEntries().size();
                 if (entrySize <= 1)
                     return resultList;
-                List<String> entryAmount = LongStream.range(1, entrySize + 1).boxed().parallel().map(String::valueOf)
+                List<String> entryAmount = LongStream.rangeClosed(1, entrySize).boxed().map(String::valueOf)
                         .collect(Collectors.toList());
                 return StringUtil.copyPartialMatches(args[2], entryAmount, resultList);
             }
@@ -300,12 +292,11 @@ public class LazyUtilsTabCompleter implements TabCompleter {
                 Objective obj = mainScoreboard.getObjective(args[1]);
                 if (obj == null)
                     return resultList;
-                long entrySize = mainScoreboard.getEntries().stream().parallel()
-                        .filter(entry -> obj.getScore(entry).isScoreSet()).sequential().count();
+                long entrySize = mainScoreboard.getEntries().size();
                 Long top = Longs.tryParse(args[2]);
                 if (top == null || top < 0 || top > entrySize)
                     return resultList;
-                List<String> entryAmount = LongStream.range(top, entrySize + 1).boxed().parallel().map(String::valueOf)
+                List<String> entryAmount = LongStream.rangeClosed(top, entrySize).boxed().map(String::valueOf)
                         .collect(Collectors.toList());
                 return StringUtil.copyPartialMatches(args[2], entryAmount, resultList);
             }
@@ -325,7 +316,7 @@ public class LazyUtilsTabCompleter implements TabCompleter {
             return resultList;
         if (args.length == 2) {
             return StringUtil.copyPartialMatches(args[1],
-                    IntStream.range(1, 64).boxed().parallel().map(String::valueOf).collect(Collectors.toList()),
+                    IntStream.range(1, 64).boxed().map(String::valueOf).collect(Collectors.toList()),
                     resultList);
         }
         return resultList;
