@@ -37,6 +37,10 @@ commands:
     aliases: [oldmoney, opm]
     permission: lazyutils.oldplayermoney
     permission-message: '§c<permission> の権限がありません'
+  moreunbreaking:
+    description: add unbreaking 1 more level.
+    permission: lazyutils.moreunbreaking
+    permission-message: '§c<permission> の権限がありません'
 
 permissions:
   lazyutils.*:
@@ -121,3 +125,6 @@ permissions:
   lazyutils.oldplayermoney:
     description: Permission for command /oldplayermoney [confirm]
     default: op
+  lazyutils.moreunbreaking:
+    description: Permission for command /moreunbreaking
+    default: true

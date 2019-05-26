@@ -17,13 +17,15 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class SaplingAutoReplace implements Listener {
 
-    private FileConfiguration treeFarmConfig;
+    private FileConfiguration farmConfig;
     private Set<Location> treeLocations;
     private Map<Material, Material> trees = new HashMap<Material, Material>() {
         private static final long serialVersionUID = 1L;
@@ -57,8 +59,23 @@ public class SaplingAutoReplace implements Listener {
 
     public SaplingAutoReplace(Plugin plugin) {
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
-        treeFarmConfig = LazyUtils.getInstance().getPublicTreeFarmConfig().getConfig();
+        farmConfig = LazyUtils.getInstance().getPublicFarmConfig().getConfig();
         treeLocations = getTreeLocations();
+    }
+
+    @EventHandler
+    private void cancelBoneMeal(PlayerInteractEvent event) {
+        Block clickedBlock = event.getClickedBlock();
+        if (clickedBlock == null)
+            return;
+        if (!treeLocations.contains(clickedBlock.getLocation()))
+            return;
+        if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
+            return;
+        if (!event.getPlayer().getInventory().getItemInMainHand().getType().equals(Material.BONE_MEAL)
+                && !event.getPlayer().getInventory().getItemInOffHand().getType().equals(Material.BONE_MEAL))
+            return;
+        event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.HIGH)
@@ -81,7 +98,8 @@ public class SaplingAutoReplace implements Listener {
             return;
 
         Material blockBelow = brokenBlock.getLocation().add(0D, -1D, 0D).getBlock().getBlockData().getMaterial();
-        if (!blockBelow.equals(Material.DIRT) && !blockBelow.equals(Material.GRASS_BLOCK) && !blockBelow.equals(Material.PODZOL))
+        if (!blockBelow.equals(Material.DIRT) && !blockBelow.equals(Material.GRASS_BLOCK)
+                && !blockBelow.equals(Material.PODZOL))
             return;
 
         new BukkitRunnable() {
@@ -99,28 +117,28 @@ public class SaplingAutoReplace implements Listener {
         Set<Location> treeLocations = new HashSet<>();
         Set<Location> treeLocationsRelative = new HashSet<>();
 
-        if (!treeFarmConfig.isSet("trees")) {
+        if (!farmConfig.isSet("trees")) {
             return treeLocations;
         }
 
-        if (!treeFarmConfig.get("trees").getClass().getSimpleName().equals("MemorySection")) {
+        if (!farmConfig.get("trees").getClass().getSimpleName().equals("MemorySection")) {
             return treeLocations;
         }
 
         World worldForRelativeLocation = Bukkit.getServer()
-                .getWorld(treeFarmConfig.getString("WorldForRelativeLocation", ""));
+                .getWorld(farmConfig.getString("WorldForRelativeLocation", ""));
         Location relativeBase = null;
         if (worldForRelativeLocation != null) {
-            double relativeBaseX = treeFarmConfig.getDouble("RelativeLocationBase.x", Double.MAX_VALUE);
-            double relativeBaseY = treeFarmConfig.getDouble("RelativeLocationBase.y", Double.MAX_VALUE);
-            double relativeBaseZ = treeFarmConfig.getDouble("RelativeLocationBase.z", Double.MAX_VALUE);
+            double relativeBaseX = farmConfig.getDouble("RelativeLocationBase.x", Double.MAX_VALUE);
+            double relativeBaseY = farmConfig.getDouble("RelativeLocationBase.y", Double.MAX_VALUE);
+            double relativeBaseZ = farmConfig.getDouble("RelativeLocationBase.z", Double.MAX_VALUE);
             if (relativeBaseX != Double.MAX_VALUE && relativeBaseY != Double.MAX_VALUE
                     && relativeBaseZ != Double.MAX_VALUE) {
                 relativeBase = new Location(worldForRelativeLocation, relativeBaseX, relativeBaseY, relativeBaseZ);
             }
         }
 
-        ((MemorySection) treeFarmConfig.get("trees")).getValues(false).entrySet().stream()
+        ((MemorySection) farmConfig.get("trees")).getValues(false).entrySet().stream()
                 .filter(entry -> entry.getValue().getClass().getSimpleName().equals("MemorySection"))
                 .forEach(configSections -> {
 
