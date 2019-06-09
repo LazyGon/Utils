@@ -30,7 +30,7 @@ public class MoreUnbreaking {
 
         int maxLevel = LazyUtils.getInstance().getConfig().getInt("MoreUnbreakingMaxLevel", 10);
         if (durabilityLevel >= maxLevel)
-            return Commands.errorOccured(player, "§耐久力の最大値は §b" + maxLevel + " レベルまでです。");
+            return Commands.errorOccured(player, "§c耐久力の最大値は §b" + maxLevel + " §cレベルまでです。");
             
         if (mainHandItem.getAmount() > 1)
             return Commands.errorOccured(player, "§cスタックされたアイテムには使えません。");
