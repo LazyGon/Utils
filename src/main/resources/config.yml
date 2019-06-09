@@ -3,6 +3,9 @@
 #
 # If you want use color code, use section §.
 
+# MoreUnbreaking Max Level
+MoreunbreakingMaxLevel: 10
+
 # Plugin Messages
 PermissionDenied: "§c権限がありません。"
 

@@ -31,6 +31,7 @@ public class Commands implements CommandExecutor {
 		instance.getCommand("getspawner").setExecutor(this);
 		instance.getCommand("oldplayermoney").setExecutor(this);
 		instance.getCommand("moreunbreaking").setExecutor(this);
+		instance.getCommand("respawn").setExecutor(this);
 	}
 
 	@Override
@@ -82,8 +83,26 @@ public class Commands implements CommandExecutor {
 			if (!hasPermission(sender, "lazyutils." + commandName))
 				return false;
 			return MoreUnbreaking.addUnbreaking((Player) sender);
+		case "respawn":
+			if (!hasPermission(sender, "lazyutils." + commandName))
+				return false;
+			return respawnPlayer(sender, args);
 		}
 		return false;
+	}
+
+	private boolean respawnPlayer(CommandSender sender, String[] args) {
+		if (args.length == 0)
+			return errorOccured(sender, "§c引数が足りません。");
+
+		Player target = Bukkit.getPlayer(args[0]);
+		if (target == null)
+			return errorOccured(sender, "§cプレイヤーが見つかりませんでした。");
+
+		if (!target.isDead()) return errorOccured(sender, "§cプレイヤーは行きています。");
+
+		target.spigot().respawn();
+		return true;
 	}
 
 	private boolean seeOldPlayerMoney(CommandSender sender, Command command, String label, String[] args) {
