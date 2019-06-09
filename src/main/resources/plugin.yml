@@ -4,6 +4,10 @@ main: com.github.okocraft.lazyutils.LazyUtils
 author: lazy_gon
 api-version: 1.13
 commands:
+  respawn:
+    description: respawn died player.
+    permission: lazyutils.respawn
+    permission-message: '§c<permission> の権限がありません。'
   uniqueprefix:
     description: Commands that operate uniqueprefix.
     aliases: [uprefix, upref]

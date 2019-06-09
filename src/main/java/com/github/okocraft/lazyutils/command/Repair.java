@@ -61,13 +61,13 @@ public class Repair {
         if (cost > maxCost) cost = maxCost;
         
         if (args.length < 1 || !args[0].equalsIgnoreCase("confirm")) {
-            sender.sendMessage("§7 * 金額は §b" + cost + " §7円です (損耗率: " + damagePercent + "%)。それで良ければ /repair confirm と入力してください。");
+            sender.sendMessage("§7 * 金額は §b" + cost + " §7円です (損耗率: " + damagePercent + "%)。それで良ければ /costrepair confirm と入力してください。");
             return true;
         }
 
-        economy.withdrawPlayer(player, cost);
         if (economy.getBalance(player) < cost)
             return Commands.errorOccured(sender, "§cお金が足りません。");
+        economy.withdrawPlayer(player, cost);
 
         damageableMeta.setDamage(0);
         item.setItemMeta((ItemMeta) damageableMeta);

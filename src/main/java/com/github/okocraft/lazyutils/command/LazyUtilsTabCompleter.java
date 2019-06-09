@@ -46,23 +46,33 @@ public class LazyUtilsTabCompleter implements TabCompleter {
         switch (commandName) {
 
         case "scoreranking":
-            sender.hasPermission("lazyutils." + commandName);
-            return onTabCompleteScoreRanking(resultList, args);
+            if(sender.hasPermission("lazyutils." + commandName))
+                return onTabCompleteScoreRanking(resultList, args);
+            return resultList;
         case "uniqueprefix":
-            sender.hasPermission("lazyutils." + commandName);
-            return onTabCompleteUniquePrefix(sender, resultList, args);
+            if(sender.hasPermission("lazyutils." + commandName))
+                return onTabCompleteUniquePrefix(sender, resultList, args);
+            return resultList;
         case "suffix":
-            sender.hasPermission("lazyutils." + commandName);
-            return onTabCompleteSuffix(sender, resultList, args);
+            if(sender.hasPermission("lazyutils." + commandName))
+                return onTabCompleteSuffix(sender, resultList, args);
+            return resultList;
         case "uuidscoreboard":
-            sender.hasPermission("lazyutils." + commandName);
-            return onTabCompleteUuidScoreboard(resultList, args);
+            if(sender.hasPermission("lazyutils." + commandName))
+                return onTabCompleteUuidScoreboard(resultList, args);
+            return resultList;
         case "costrepair":
-            sender.hasPermission("lazyutils." + commandName);
-            return onTabCompleteRepair(sender, resultList, args);
+            if(sender.hasPermission("lazyutils." + commandName))
+                return onTabCompleteRepair(sender, resultList, args);
+            return resultList;
         case "getspawner":
-            sender.hasPermission("lazyutils." + commandName);
-            return onTabCompleteSpawner(resultList, args);
+            if(sender.hasPermission("lazyutils." + commandName))
+                return onTabCompleteSpawner(resultList, args);
+            return resultList;
+        case "respawn":
+            if(sender.hasPermission("lazyutils." + commandName))
+                return null;
+            return resultList;
         }
 
         return resultList;

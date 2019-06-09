@@ -13,6 +13,7 @@ import com.github.okocraft.lazyutils.command.Spawner;
 import com.github.okocraft.lazyutils.listener.FarmAutoReplace;
 import com.github.okocraft.lazyutils.listener.PlayerDeath;
 import com.github.okocraft.lazyutils.listener.SaplingAutoReplace;
+import com.github.okocraft.lazyutils.listener.TestListener;
 
 public class LazyUtils extends JavaPlugin {
 
@@ -27,7 +28,7 @@ public class LazyUtils extends JavaPlugin {
 	@Override
 	public void onEnable() {
 
-		if (!setupEconomy()){
+		if (!setupEconomy()) {
 			getLogger().severe("Failed to hook vault.");
 			isEconomyEnabled = false;
 		}
@@ -35,19 +36,20 @@ public class LazyUtils extends JavaPlugin {
 		repairCostConfig = new CustomConfig(this, "RepairCost.yml");
 		prefixData = new CustomConfig(this, "PrefixData.yml");
 		publicFarmConfig = new CustomConfig(this, "PublicFarm.yml");
-		new Spawner(this);
-		new PlayerDeath(this);
-		new SaplingAutoReplace(this);
-		new FarmAutoReplace(this);
-		new Commands();
-		new LazyUtilsTabCompleter();
 		config = new LazyUtilsConfig();
+		new Spawner(this);
 
 		this.saveDefaultConfig();
 		repairCostConfig.saveDefaultConfig();
 		prefixData.saveDefaultConfig();
 		publicFarmConfig.saveDefaultConfig();
 		this.getConfig().options().copyDefaults(true);
+		new PlayerDeath(this);
+		new SaplingAutoReplace(this);
+		new FarmAutoReplace(this);
+		//new TestListener(this);
+		new Commands();
+		new LazyUtilsTabCompleter();
 	}
 
 	@Override

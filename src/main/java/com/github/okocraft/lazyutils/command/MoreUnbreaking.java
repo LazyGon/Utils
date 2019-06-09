@@ -2,6 +2,8 @@ package com.github.okocraft.lazyutils.command;
 
 import java.util.Arrays;
 
+import com.github.okocraft.lazyutils.LazyUtils;
+
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -25,6 +27,10 @@ public class MoreUnbreaking {
         int durabilityLevel = mainHandItem.getEnchantments().getOrDefault(Enchantment.DURABILITY, 0);
         if (durabilityLevel < 3)
             return Commands.errorOccured(player, "§c耐久力のレベルは3以上でなくてはなりません。");
+
+        int maxLevel = LazyUtils.getInstance().getConfig().getInt("MoreUnbreakingMaxLevel", 10);
+        if (durabilityLevel >= maxLevel)
+            return Commands.errorOccured(player, "§耐久力の最大値は §b" + maxLevel + " レベルまでです。");
             
         if (mainHandItem.getAmount() > 1)
             return Commands.errorOccured(player, "§cスタックされたアイテムには使えません。");
