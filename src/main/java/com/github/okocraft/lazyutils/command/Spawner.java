@@ -36,15 +36,15 @@ public class Spawner implements Listener {
         PlayerInventory inv = ((Player) sender).getInventory();
 
         if (inv.firstEmpty() == -1)
-            return Commands.errorOccured(sender, "§cインベントリに空きがありません。");
+            return Commands.errorOccurred(sender, "§cインベントリに空きがありません。");
         if (amount > 64 || amount < 1)
-            return Commands.errorOccured(sender, "§c数は1 ~ 64の間にしてください。");
+            return Commands.errorOccurred(sender, "§c数は1 ~ 64の間にしてください。");
 
         try {
             if (!EntityType.valueOf(mobName.toUpperCase()).isSpawnable())
-                return Commands.errorOccured(sender, "そのエンティティはスポーン不可能です。");
+                return Commands.errorOccurred(sender, "そのエンティティはスポーン不可能です。");
         } catch (IllegalArgumentException e) {
-            return Commands.errorOccured(sender, "§cそのようなエンティティは存在しません。");
+            return Commands.errorOccurred(sender, "§cそのようなエンティティは存在しません。");
         }
 
         ItemStack spawner = new ItemStack(Material.SPAWNER);

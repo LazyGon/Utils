@@ -22,7 +22,7 @@ public class UuidScoreboard {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		if (args.length == 0)
-			return Commands.errorOccured(sender, "§c第一引数を指定してください。");
+			return Commands.errorOccurred(sender, "§c第一引数を指定してください。");
 
 		String operation = args[0].toLowerCase();
 
@@ -37,7 +37,7 @@ public class UuidScoreboard {
 		if (!args[0].equalsIgnoreCase("ranking")) {
 
 			if (args.length != 3)
-				return Commands.errorOccured(sender, "§c構文が間違えています。");
+				return Commands.errorOccurred(sender, "§c構文が間違えています。");
 
 			player = Bukkit.getOfflinePlayer(args[1]);
 
@@ -46,21 +46,21 @@ public class UuidScoreboard {
 			obj = mainScoreboard.getObjective(args[2]);
 
 			if (!player.hasPlayedBefore())
-				return Commands.errorOccured(sender, "§b" + args[1].toLowerCase() + " §cのUUIDは見つかりませんでした");
+				return Commands.errorOccurred(sender, "§b" + args[1].toLowerCase() + " §cのUUIDは見つかりませんでした");
 
 			if (obj == null)
-				return Commands.errorOccured(sender, "§b" + args[2] + " §cというobjectiveは見つかりませんでした");
+				return Commands.errorOccurred(sender, "§b" + args[2] + " §cというobjectiveは見つかりませんでした");
 		}
 
 		if (!args[0].equalsIgnoreCase("ranking") && !args[0].equalsIgnoreCase("get")) {
 
 			if (args.length != 4)
-				return Commands.errorOccured(sender, "§c構文が間違えています。");
+				return Commands.errorOccurred(sender, "§c構文が間違えています。");
 
 			try {
 				givenScore = Integer.parseInt(args[3]);
 			} catch (NumberFormatException e) {
-				return Commands.errorOccured(sender, "§cnumberには数字を指定してください。");
+				return Commands.errorOccurred(sender, "§cnumberには数字を指定してください。");
 			}
 		}
 
@@ -95,12 +95,12 @@ public class UuidScoreboard {
 				top = Integer.parseInt(args[2]);
 				bottom = Integer.parseInt(args[3]);
 			} catch (NumberFormatException e) {
-				return Commands.errorOccured(sender, "§ctopとbottomには数字を指定してください。");
+				return Commands.errorOccurred(sender, "§ctopとbottomには数字を指定してください。");
 			}
 
 			obj = mainScoreboard.getObjective(args[1]);
 			if (obj == null)
-				return Commands.errorOccured(sender, "§b" + args[1] + " §cというobjectiveは見つかりませんでした");
+				return Commands.errorOccurred(sender, "§b" + args[1] + " §cというobjectiveは見つかりませんでした");
 
 			return ranking(sender, obj, top, bottom);
 
@@ -142,10 +142,10 @@ public class UuidScoreboard {
 	private static boolean ranking(CommandSender sender, Objective obj, int top, int bottom) {
 
 		if (top < 1)
-			return Commands.errorOccured(sender, "§ctopが小さすぎます");
+			return Commands.errorOccurred(sender, "§ctopが小さすぎます");
 
 		if (top > bottom)
-			return Commands.errorOccured(sender, "§ctopの値はbottom以下でなくてはいけません");
+			return Commands.errorOccurred(sender, "§ctopの値はbottom以下でなくてはいけません");
 
 		Map<String, Integer> resultMap = Stream.of(Bukkit.getOfflinePlayers()).parallel()
 				.filter(player -> obj.getScore(player.getUniqueId().toString()).isScoreSet())

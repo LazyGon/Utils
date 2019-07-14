@@ -21,7 +21,7 @@ public class ScoreRanking {
 		Scoreboard MainScoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
 
 		if (!(args.length == 3))
-			return Commands.errorOccured(sender, "§c引数の数は3つです 構文: /scoreranking <objective> <top> <bottom>");
+			return Commands.errorOccurred(sender, "§c引数の数は3つです 構文: /scoreranking <objective> <top> <bottom>");
 
 		int top;
 		int bottom;
@@ -30,19 +30,19 @@ public class ScoreRanking {
 			top = Integer.parseInt(args[1]);
 			bottom = Integer.parseInt(args[2]);
 		} catch (NumberFormatException e) {
-			return Commands.errorOccured(sender, "§c2つ目と3つ目の引数は数字である必要があります");
+			return Commands.errorOccurred(sender, "§c2つ目と3つ目の引数は数字である必要があります");
 		}
 
 		if (top < 1)
-			return Commands.errorOccured(sender, "§ctopが小さすぎます");
+			return Commands.errorOccurred(sender, "§ctopが小さすぎます");
 
 		if (top > bottom)
-			return Commands.errorOccured(sender, "§ctopの値はbottomより小さくなくてはいけません");
+			return Commands.errorOccurred(sender, "§ctopの値はbottomより小さくなくてはいけません");
 
 		Objective Obj = MainScoreboard.getObjective(args[0]);
 
 		if (Obj == null)
-			return Commands.errorOccured(sender, "§b" + args[0] + " §7という名前のobjectiveは見つかりませんでした");
+			return Commands.errorOccurred(sender, "§b" + args[0] + " §7という名前のobjectiveは見つかりませんでした");
 
 		Map<String, Integer> resultMap = MainScoreboard.getEntries().stream().parallel()
 				.filter(entry -> Obj.getScore(entry).isScoreSet())
