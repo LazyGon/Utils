@@ -1,5 +1,7 @@
 package com.github.okocraft.lazyutils.listener;
 
+import com.github.okocraft.lazyutils.LazyUtils;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -7,7 +9,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class PlayerDeath implements Listener {
 
@@ -16,27 +20,36 @@ public class PlayerDeath implements Listener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerDeath(PlayerDeathEvent event) {
+    public void onPlayerDeathLowest(PlayerDeathEvent event) {
         // 4 28 -42, 64 53 18
-        Bukkit.getOnlinePlayers().stream().filter(PlayerDeath::isInThePvPArea)
+        Bukkit.getOnlinePlayers().stream().filter(PlayerDeath::isInPvPArea)
                 .forEach(player -> player.sendMessage(event.getDeathMessage()));
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onPlayerDeathRespawn(PlayerDeathEvent event) {
+    public void onPlayerDeathHigh(PlayerDeathEvent event) {
         Player player = event.getEntity();
-        if (!isInThePvPArea(player)) {
-            return;
-        }
-        player.spigot().respawn();
-        player.teleport(new Location(Bukkit.getWorld("lobby_5"), 34, 55, -12));
+        if (!isInPvPArea(player)) return;
+        new BukkitRunnable(){
+            
+                @Override
+                public void run() {   
+                    player.spigot().respawn();
+                }
+        }.runTaskLater(LazyUtils.getInstance(), 1L);
     }
 
-    private static boolean isInThePvPArea(Player player) {
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
+        if (!isInPvPArea(event.getPlayer())) return;
+        event.setRespawnLocation(new Location(Bukkit.getWorld("lobby_5"), 34, 55, -12));
+    }
+
+    private static boolean isInPvPArea(Player player) {
         Location loc = player.getLocation();
-        if (loc.getWorld().getName().equals("lobby_5") && 4 <= loc.getX() && loc.getX() <= 64 && 28 <= loc.getY()
-                && loc.getY() <= 60 && -43 <= loc.getZ() && loc.getZ() <= 18)
-            return true;
-        return false;
+        return loc.getWorld().getName().equals("lobby_5") &&
+                4 <= loc.getX() && loc.getX() <= 64 &&
+                28 <= loc.getY() && loc.getY() <= 60 &&
+                -43 <= loc.getZ() && loc.getZ() <= 18;
     }
 }

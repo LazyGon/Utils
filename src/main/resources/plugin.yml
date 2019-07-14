@@ -2,8 +2,13 @@ name: LazyUtils
 version: 1.0.0
 main: com.github.okocraft.lazyutils.LazyUtils
 author: lazy_gon
+depend: [WorldEdit, WorldGuard]
 api-version: 1.13
 commands:
+  wgregion:
+    description: restore old player region.
+    permission: lazyutils.wgregion
+    permission-message: '§c<permission> の権限がありません。'
   respawn:
     description: respawn died player.
     permission: lazyutils.respawn
@@ -132,3 +137,6 @@ permissions:
   lazyutils.moreunbreaking:
     description: Permission for command /moreunbreaking
     default: true
+  lazyutils.bypass.creatinghall:
+    description: Permission to bypass creating hall.
+    default: op

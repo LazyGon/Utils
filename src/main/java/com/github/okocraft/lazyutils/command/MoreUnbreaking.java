@@ -26,14 +26,14 @@ public class MoreUnbreaking {
         ItemStack mainHandItem = inv.getItemInMainHand();
         int durabilityLevel = mainHandItem.getEnchantments().getOrDefault(Enchantment.DURABILITY, 0);
         if (durabilityLevel < 3)
-            return Commands.errorOccured(player, "§c耐久力のレベルは3以上でなくてはなりません。");
+            return Commands.errorOccurred(player, "§c耐久力のレベルは3以上でなくてはなりません。");
 
         int maxLevel = LazyUtils.getInstance().getConfig().getInt("MoreUnbreakingMaxLevel", 10);
         if (durabilityLevel >= maxLevel)
-            return Commands.errorOccured(player, "§c耐久力の最大値は §b" + maxLevel + " §cレベルまでです。");
+            return Commands.errorOccurred(player, "§c耐久力の最大値は §b" + maxLevel + " §cレベルまでです。");
             
         if (mainHandItem.getAmount() > 1)
-            return Commands.errorOccured(player, "§cスタックされたアイテムには使えません。");
+            return Commands.errorOccurred(player, "§cスタックされたアイテムには使えません。");
 
         for(ItemStack item : inv) {
             if (item != null &&
@@ -47,7 +47,7 @@ public class MoreUnbreaking {
                 return true;
             }
         }
-        return Commands.errorOccured(player, "§cレジェンダリーチケットがありません。");        
+        return Commands.errorOccurred(player, "§cレジェンダリーチケットがありません。");        
     }
 
 }

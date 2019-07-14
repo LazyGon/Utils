@@ -30,32 +30,32 @@ public class Repair {
 
     public static boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!LazyUtils.getInstance().isEconomyEnabled())
-            return Commands.errorOccured(sender, "§c経済が有効化されていません。");
+            return Commands.errorOccurred(sender, "§c経済が有効化されていません。");
 
         Player player = (Player) sender;
         ItemStack item = player.getInventory().getItemInMainHand();
         if (item == null || Material.AIR.equals(item.getType()))
-            return Commands.errorOccured(sender, "§c空気は直せません。");
+            return Commands.errorOccurred(sender, "§c空気は直せません。");
 
         Damageable damageableMeta;
         try {
             damageableMeta = (Damageable) item.getItemMeta();
         } catch (ClassCastException e) {
-            return Commands.errorOccured(sender, "§cそのアイテムは直せません。");
+            return Commands.errorOccurred(sender, "§cそのアイテムは直せません。");
         }
 
         int currentDamage = damageableMeta.getDamage();
         int maxDurability = (int) item.getType().getMaxDurability();
         if (currentDamage == 0 || maxDurability == 0)
-            return Commands.errorOccured(sender, "§c耐久値が減っていません。");
+            return Commands.errorOccurred(sender, "§c耐久値が減っていません。");
 
         double damagePercent = Math.round(((double) currentDamage / (double) maxDurability) * 1000D)/10D;
         if (damagePercent < 1)
-            return Commands.errorOccured(sender, "§c損耗率が少なすぎて直せません。(" + damagePercent + "%)");
+            return Commands.errorOccurred(sender, "§c損耗率が少なすぎて直せません。(" + damagePercent + "%)");
 
         double cost = Math.round(damagePercent * calcCost(sender)) / 100D;
         if (cost == 0)
-            return Commands.errorOccured(sender, "§cコストが0です。正しい手順を踏んでいてもこうなる場合は管理者に報告してください。");
+            return Commands.errorOccurred(sender, "§cコストが0です。正しい手順を踏んでいてもこうなる場合は管理者に報告してください。");
         
         double maxCost = costConfig.getDouble("MaxCost", 500000.0);
         if (cost > maxCost) cost = maxCost;
@@ -66,7 +66,7 @@ public class Repair {
         }
 
         if (economy.getBalance(player) < cost)
-            return Commands.errorOccured(sender, "§cお金が足りません。");
+            return Commands.errorOccurred(sender, "§cお金が足りません。");
         economy.withdrawPlayer(player, cost);
 
         damageableMeta.setDamage(0);
