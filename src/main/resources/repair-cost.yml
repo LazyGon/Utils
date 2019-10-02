@@ -1,0 +1,272 @@
+max-cost: 50000
+min-damaged-percent: 1 # in percent
+item-cost: # base cost of repairing per items.
+  DEFAULT: 10000
+  DIAMOND_SWORD: 10000
+enchantments:
+  DEFAULT:
+    cost: # extra cost will be added if the enchantment exists. number in "cost:" is enchantment level.
+      1: 500
+      2: 1000
+      3: 2000
+      4: 4000
+      5: 8000
+#  DAMAGE_ALL: # overrides default.
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  ARROW_DAMAGE:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  ARROW_FIRE:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  ARROW_INFINITE:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  ARROW_KNOCKBACK:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  BINDING_CURSE:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  CHANNELING:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  DAMAGE_ARTHROPODS:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  DAMAGE_UNDEAD:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  DEPTH_STRIDER:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  DIG_SPEED:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  DURABILITY:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  FIRE_ASPECT:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  FROST_WALKER:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  IMPALING:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  KNOCKBACK:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  LOOT_BONUS_BLOCKS:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  LOOT_BONUS_MOBS:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  LOYALTY:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  LUCK:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  LURE:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  MENDING:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  MULTISHOT:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  OXYGEN:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  PIERCING:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  PROTECTION_ENVIRONMENTAL:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  PROTECTION_EXPLOSIONS:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  PROTECTION_FALL:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  PROTECTION_FIRE:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  PROTECTION_PROJECTILE:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  QUICK_CHARGE:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  RIPTIDE:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  SILK_TOUCH:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  SWEEPING_EDGE:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  THORNS:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  VANISHING_CURSE:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600
+#  WATER_WORKER:
+#    cost:
+#      1: 100
+#      2: 200
+#      3: 400
+#      4: 800
+#      5: 1600

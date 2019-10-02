@@ -1,4 +1,4 @@
-package com.github.okocraft.lazyutils.listener;
+package com.github.okocraft.utils.listener;
 
 import java.util.Arrays;
 
@@ -19,14 +19,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.Plugin;
 
-public class PreventMultiCenterProtection implements Listener {
+public class CommandListener implements Listener {
 
-    public PreventMultiCenterProtection(Plugin plugin) {
+    public CommandListener(Plugin plugin) {
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler
-    public void onCommand(PlayerCommandPreprocessEvent event) {
+    public void onRgClaimCommand(PlayerCommandPreprocessEvent event) {
         String message = event.getMessage();
         if (!message.startsWith("/rg claim") && !message.startsWith("/region claim")
                 && !message.startsWith("/regions claim") && !message.startsWith("/worldguard:rg claim")
@@ -63,5 +63,25 @@ public class PreventMultiCenterProtection implements Listener {
             event.getPlayer().sendMessage("§c区画を2つ以上保護することはできません。");
             event.setCancelled(true);
         }
+    }
+
+    @EventHandler
+    public void onPvPCommand(PlayerCommandPreprocessEvent event) {
+        String message = event.getMessage();
+        if (!message.startsWith("/bw ") && !message.startsWith("/bedwars") && !message.startsWith("/1v1")
+                && !message.startsWith("/duel") && !message.startsWith("/duels") && !message.startsWith("/spec")) {
+            return;
+        }
+
+        if (event.getPlayer().getWorld().getName().equalsIgnoreCase("Playgound")) {
+            return;
+        }
+
+        if (event.getPlayer().hasPermission("okocraft.command.pvp")) {
+            return;
+        }
+
+        event.getPlayer().sendMessage("§7* §cこのコマンドはBedwarsやKitPvPの会場でしか使えません。");
+        event.setCancelled(true);
     }
 }
