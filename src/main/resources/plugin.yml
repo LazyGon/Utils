@@ -1,142 +1,73 @@
-name: LazyUtils
-version: 1.0.0
-main: com.github.okocraft.lazyutils.LazyUtils
+name: ${project.artifactId}
+version: ${project.version}
+main: com.github.okocraft.utils.Utils
 author: lazy_gon
-depend: [WorldEdit, WorldGuard]
-api-version: 1.13
+api-version: '1.14'
 commands:
-  wgregion:
-    description: restore old player region.
-    permission: lazyutils.wgregion
-    permission-message: '§c<permission> の権限がありません。'
-  respawn:
-    description: respawn died player.
-    permission: lazyutils.respawn
-    permission-message: '§c<permission> の権限がありません。'
-  uniqueprefix:
-    description: Commands that operate uniqueprefix.
-    aliases: [uprefix, upref]
-    permission: lazyutils.uniqueprefix
-    permission-message: '§c<permission> の権限がありません'
-  suffix:
-    description: Commands that operate suffix.
-    aliases: [suffix, suf]
-    permission: lazyutils.suffix
-    permission-message: '§c<permission> の権限がありません'
-  uuidscoreboard:
-    description: Commands that make uuid entries.
-    aliases: [uscoreboard, uscore, usb]
-    permission: lazyutils.uuidscoreboard
-    permission-message: '§c<permission> の権限がありません'
-  scoreranking:
-    description: Command that shows vanilla scoreboard ranking in chat.
-    aliases: [scorerank, srank, sr]
-    permission: lazyutils.scoreranking
-    permission-message: '§c<permission> の権限がありません'
-  costrepair:
-    description: Command that repairs item with cost.
-    permission: lazyutils.costrepair
-    permission-message: '§c<permission> の権限がありません'
-  getspawner:
-    description: get spawner
-    permission: lazyutils.getspawner
-    permission-message: '§c<permission> の権限がありません'
-  oldplayermoney:
-    description: see old players money total.
-    aliases: [oldmoney, opm]
-    permission: lazyutils.oldplayermoney
-    permission-message: '§c<permission> の権限がありません'
-  moreunbreaking:
-    description: add unbreaking 1 more level.
-    permission: lazyutils.moreunbreaking
-    permission-message: '§c<permission> の権限がありません'
+  utils:
+    description: Base command of this plugin.
+    aliases: [lazy, lu]
 
 permissions:
-  lazyutils.*:
+  utils.*:
     description: Includes all permissions.
     default: op
     children:
-      lazyutils.uuidscoreboard.*: true
-      lazyutils.scoreranking: true
-      lazyutils.uniqueprefix.*: true
-      lazyutils.suffix.*: true
-      lazyutils.costrepair: true
-  lazyutils.uniqueprefix.*:
+      utils.scoreranking: true
+      utils.uniqueprefix.*: true
+      utils.suffix.*: true
+      utils.costrepair: true
+  utils.uniqueprefix.*:
     description: Includes all uniqueprefix command's permission.
     default: op
     children:
-      lazyutils.uniqueprefix: true
-      lazyutils.uniqueprefix.add: true
-      lazyutils.uniqueprefix.set: true
-      lazyutils.uniqueprefix.remove: true
-      lazyutils.uniqueprefix.list: true
-  lazyutils.suffix.*:
+      utils.uniqueprefix: true
+      utils.uniqueprefix.add: true
+      utils.uniqueprefix.set: true
+      utils.uniqueprefix.remove: true
+      utils.uniqueprefix.list: true
+  utils.suffix.*:
     description: Includes all suffix command's permission.
     default: op
     children:
-      lazyutils.uniqueprefix: true
-      lazyutils.uniqueprefix.other: true
-  lazyutils.uuidscoreboard.*:
-    description: Includes all uuidscoreboard command's permission.
+      utils.uniqueprefix: true
+      utils.uniqueprefix.other: true
+  utils.scoreranking:
+    description: Permission for command /utils scoreranking <objective> top bottom
     default: op
-    children:
-      lazyutils.uuidscoreboard: true
-      lazyutils.uuidscoreboard.add: true
-      lazyutils.uuidscoreboard.set: true
-      lazyutils.uuidscoreboard.remove: true
-      lazyutils.uuidscoreboard.get: true
-      lazyutils.uuidscoreboard.ranking: true
-  lazyutils.uuidscoreboard:
-    description: Permission for command /uuidscoreboard
-    default: op
-  lazyutils.uuidscoreboard.add:
-    description: Permission for command /uuidscoreboard add <player> <score> <number>
-    default: op
-  lazyutils.uuidscoreboard.set:
-    description: Permission for command /uuidscoreboard set <player> <score> <number>
-    default: op
-  lazyutils.uuidscoreboard.remove:
-    description: Permission for command /uuidscoreboard remove <player> <score> <number>
-    default: op
-  lazyutils.uuidscoreboard.get:
-    description: Permission for command /uuidscoreboard get <player> <score>
-    default: op
-  lazyutils.scoreranking:
-    description: Permission for command /scoreranking <objective> top bottom
-    default: op
-  lazyutils.uniqueprefix:
-    description: Permission for command /uniqueprefix add <prefix>
+  utils.uniqueprefix:
+    description: Permission for command /utils uniqueprefix <args...>
     default: true
-  lazyutils.uniqueprefix.add:
-    description: Permission for command /uniqueprefix add <prefix>
+  utils.uniqueprefix.add:
+    description: Permission for command /utils uniqueprefix add <prefix>
     default: op
-  lazyutils.uniqueprefix.set:
-    description: Permission for command /uniqueprefix set <number>
+  utils.uniqueprefix.set:
+    description: Permission for command /utils uniqueprefix set <number>
     default: true
-  lazyutils.uniqueprefix.remove:
-    description: Permission for command /uniqueprefix remove <number>
+  utils.uniqueprefix.remove:
+    description: Permission for command /utils uniqueprefix remove <number>
     default: true
-  lazyutils.uniqueprefix.list:
-    description: Permission for command /uniqueprefix list
+  utils.uniqueprefix.list:
+    description: Permission for command /utils uniqueprefix list
     default: true
-  lazyutils.uniqueprefix.other:
-    description: Permission for other player argument of /uniqueprefix command
+  utils.uniqueprefix.other:
+    description: Permission for other player argument of /utils uniqueprefix command
     default: op
-  lazyutils.suffix:
-    description: Permission for /suffix command
+  utils.suffix:
+    description: Permission for /utils suffix command
     default: op
-  lazyutils.suffix.other:
-    description: Permission for other player argument of /suffix command
+  utils.suffix.other:
+    description: Permission for other player argument of /utils suffix command
     default: op
-  lazyutils.costrepair:
-    description: Permission for command /costrepair [confirm]
+  utils.costrepair:
+    description: Permission for command /utils costrepair [confirm]
     default: true
-  lazyutils.oldplayermoney:
-    description: Permission for command /oldplayermoney [confirm]
+  utils.inactivemoney:
+    description: Permission for command /utils inactivemoney [confirm]
     default: op
-  lazyutils.moreunbreaking:
-    description: Permission for command /moreunbreaking
+  utils.moreunbreaking:
+    description: Permission for command /utils moreunbreaking
     default: true
-  lazyutils.bypass.creatinghall:
+  utils.bypass.creatinghall:
     description: Permission to bypass creating hall.
     default: op

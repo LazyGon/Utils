@@ -1,16 +1,20 @@
 #
-# Configuration File of LazyUtils plugin.
+# Configuration of Utils plugin.
 #
-# If you want use color code, use section §.
 
-# MoreUnbreaking Max Level
-MoreunbreakingMaxLevel: 10
+more-unbreaking-max-level: 10
 
-# Plugin Messages
-PermissionDenied: "§c権限がありません。"
+spawner-allowed-worlds:
+  - "TT"
 
-#  utilities
-HomeDirectory: "/minecraft/main/plugins/ImageMaps/images/"
-HelpMessage: "§7これらのコマンドが使用可能です。"
-DownLoadMessage: "§7ファイルがダウンロードされました。"
-RemovedMessage: "§7ファイルは正常に削除されました。"
+prefix-set-command: "lp user %player% meta setprefix 1 %prefix%"
+prefix-remove-command: "lp user %player% meta removeprefix 1 %prefix%"
+suffix-set-command: "lp user %player% meta setsuffix 1 %suffix%"
+
+legendary-ticket:
+  display-name: "§6§lレジェンダリーチケット"
+  lore:
+    - "§7"
+    - "§7おこチケ超大当たりで排出されるチケット。"
+    - "§7超レア称号、スポナーなどと交換可能。"
+    - ""
