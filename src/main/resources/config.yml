@@ -9,7 +9,7 @@ spawner-allowed-worlds:
 
 prefix-set-command: "lp user %player% meta setprefix 1 %prefix%"
 prefix-remove-command: "lp user %player% meta removeprefix 1 %prefix%"
-suffix-set-command: "lp user %player% meta setsuffix 1 %suffix%"
+suffix-set-command: "lp user %player% meta setsuffix 10 %suffix%"
 
 legendary-ticket:
   display-name: "§6§lレジェンダリーチケット"

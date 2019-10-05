@@ -162,9 +162,11 @@ public class Spawner extends SubCommand implements Listener {
         PlayerInventory inv = ((Player) sender).getInventory();
 
         int amount = 1;
-        try {
-            amount = Integer.parseInt(args[2]);
-        } catch (NumberFormatException ignored) {
+        if (args.length > 2) {
+            try {
+                amount = Integer.parseInt(args[2]);
+            } catch (NumberFormatException ignored) {
+            }
         }
 
         if (amount < 1) {
@@ -174,6 +176,7 @@ public class Spawner extends SubCommand implements Listener {
         ItemStack spawner = new ItemStack(Material.SPAWNER);
         ItemMeta spawnerMeta = spawner.getItemMeta();
         spawnerMeta.getPersistentDataContainer().set(key, PersistentDataType.STRING, type.name());
+        spawnerMeta.setDisplayName("§e" + type.getKey().getKey() + " のスポナー");
         spawner.setItemMeta(spawnerMeta);
         spawner.setAmount(amount);
         if (!inv.addItem(spawner).isEmpty()) {

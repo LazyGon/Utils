@@ -44,8 +44,8 @@ public class ScoreRanking extends SubCommand {
 			return false;
 		}
 
-		List<String> entries = mainScoreboard.getEntries().stream()
-				.filter(entry -> objective.getScore(entry).isScoreSet()).collect(Collectors.toList());
+		List<String> entries = new ArrayList<>(mainScoreboard.getEntries());
+		entries.removeIf(entry -> !objective.getScore(entry).isScoreSet());
 		int entrySize = entries.size();
 		int maxPage = entrySize % 9 == 0 ? entrySize / 9 : entrySize / 9 + 1;
 		page = Math.min(page, maxPage);
@@ -63,7 +63,7 @@ public class ScoreRanking extends SubCommand {
 				Map.of("%scoreboard%", objective.getName(), "%page%", page, "%max-page%", maxPage));
 
 		for (int i = 0; i <= entrySize; i++) {
-			Messages.sendMessage(sender, false, "commnad.score-ranking.info.format", Map.of("%rank%", i + 1, "%entry%",
+			Messages.sendMessage(sender, false, "command.utils.score-ranking.info.format", Map.of("%rank%", i + 1, "%entry%",
 					String.format("%-40s", entries.get(i)), "%score%", objective.getScore(entries.get(i)).getScore()));
 		}
 		return true;
