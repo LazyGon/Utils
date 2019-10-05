@@ -71,7 +71,7 @@ command:
       error:
         invalid-syntax: "&c称号の構文を間違えています。§f構文: &(0～9 or a～f) + 日本語1文字。例: &9お"
         player-do-not-have-the-prefix: "&cその称号は &b%player% &7のものではありません！"
-
+        prefix-is-already-in-use: "&cその称号はすでに使われています。"
 listener:
   spawner:
     spawner-is-stopped: "&7このスポナーは湧き止めされています。"

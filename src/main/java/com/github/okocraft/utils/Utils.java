@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import net.milkbowl.vault.economy.Economy;
 
 import com.github.okocraft.utils.listener.PlayerDeath;
+import com.github.okocraft.utils.command.UtilsCommand;
 import com.github.okocraft.utils.listener.CommandListener;
 import com.github.okocraft.utils.listener.PvEReward;
 
@@ -25,6 +26,7 @@ public class Utils extends JavaPlugin {
 			economyEnabled = false;
 		}
 
+		new UtilsCommand();
 
 		new PlayerDeath(this);
 		new CommandListener(this);

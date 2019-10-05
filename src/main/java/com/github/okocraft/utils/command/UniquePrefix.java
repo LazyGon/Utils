@@ -18,6 +18,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
+import net.md_5.bungee.api.ChatColor;
+
 public class UniquePrefix extends SubCommand {
 
     UniquePrefix() {
@@ -86,7 +88,7 @@ public class UniquePrefix extends SubCommand {
         String prefixCommand = Config.getPrefixSetCommand().replace("%player%", player.getUniqueId().toString())
                 .replace("%prefix%", prefix);
         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), prefixCommand);
-        Messages.sendMessage(sender, "command.utils.unique-prefix.info.add-success", Map.of("%player%", player.getName(), "%prefix%", prefix));
+        Messages.sendMessage(sender, "command.utils.unique-prefix.info.add-success", Map.of("%player%", player.getName(), "%prefix%", ChatColor.translateAlternateColorCodes('&', prefix)));
 
         return true;
     }
@@ -125,7 +127,7 @@ public class UniquePrefix extends SubCommand {
         String prefixCommand = Config.getPrefixRemoveCommand().replace("%player%", player.getUniqueId().toString())
                 .replace("%prefix%", prefix);
         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), prefixCommand);
-        Messages.sendMessage(sender, "command.utils.unique-prefix.info.remove-success", Map.of("%player%", player.getName(), "%prefix%", prefix));
+        Messages.sendMessage(sender, "command.utils.unique-prefix.info.remove-success", Map.of("%player%", player.getName(), "%prefix%", ChatColor.translateAlternateColorCodes('&', prefix)));
 
         return true;
     }
@@ -164,7 +166,7 @@ public class UniquePrefix extends SubCommand {
         String prefixCommand = Config.getPrefixSetCommand().replace("%player%", player.getUniqueId().toString())
                 .replace("%prefix%", prefix);
         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), prefixCommand);
-        Messages.sendMessage(sender, "command.utils.unique-prefix.info.set-success", Map.of("%player%", player.getName(), "%prefix%", prefix));
+        Messages.sendMessage(sender, "command.utils.unique-prefix.info.set-success", Map.of("%player%", player.getName(), "%prefix%", ChatColor.translateAlternateColorCodes('&', prefix)));
 
         return true;
     }
@@ -203,7 +205,7 @@ public class UniquePrefix extends SubCommand {
     @SuppressWarnings("deprecation")
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         List<String> result = new ArrayList<>();
-        List<String> subCommands = List.of("add", "set", "remove", "list");
+        List<String> subCommands = Arrays.asList("add", "set", "remove", "list");
         subCommands.removeIf(commandName -> !sender.hasPermission("utils.uniqueprefix." + commandName));
 
         if (args.length == 2) {

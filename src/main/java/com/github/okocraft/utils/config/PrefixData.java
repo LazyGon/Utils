@@ -13,7 +13,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public final class PrefixData {
 
-    private static CustomConfig prefixData = new CustomConfig("PrefixData.yml");
+    private static CustomConfig prefixData = new CustomConfig("prefix-data.yml");
     static {
         saveDefault();
     }
@@ -43,7 +43,9 @@ public final class PrefixData {
 
     public static void setPrefixes(OfflinePlayer player, List<String> prefixes, boolean force) {
         if (!force) {
-            prefixes.removeAll(getAllPrefix());
+            Set<String> all = getAllPrefix();
+            all.removeAll(getPrefixes(player));
+            prefixes.removeAll(all);
         }
 
         get().set(player.getUniqueId().toString(), prefixes);

@@ -23,7 +23,7 @@ public class Suffix extends SubCommand {
         Player player;
         String suffix;
 
-        if (args.length > 4) {
+        if (args.length > 2) {
             player = Bukkit.getPlayer(args[1]);
             if (player == null) {
                 Messages.sendMessage(sender, "command.general.error.player-is-not-online");
@@ -39,9 +39,14 @@ public class Suffix extends SubCommand {
             return false;
         }
 
+        System.out.println(suffix);
         char suffixChar = suffix.replaceAll("&[0-9a-f]", "").charAt(0);
+        System.out.println(suffix);
         suffix = suffix.substring(0, suffix.indexOf(suffixChar) + 1);
+        System.out.println(suffix);
         String suffixCommand = Config.getSuffixSetCommand().replace("%player%", player.getName()).replace("%suffix%", suffix);
+        System.out.println(suffix);
+        System.out.println(suffixCommand);
         return Bukkit.dispatchCommand(Bukkit.getConsoleSender(), suffixCommand);
     }
 
