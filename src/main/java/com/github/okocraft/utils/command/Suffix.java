@@ -13,27 +13,31 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
-public class Suffix extends SubCommand {
+public class Suffix extends UtilsCommand {
 
     Suffix() {
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!super.onCommand(sender, command, label, args)) {
+            return false;
+        }
+
         Player player;
         String suffix;
 
-        if (args.length > 2) {
-            player = Bukkit.getPlayer(args[1]);
+        if (args.length > 1) {
+            player = Bukkit.getPlayer(args[0]);
             if (player == null) {
                 Messages.sendMessage(sender, "command.general.error.player-is-not-online");
                 return false;
             }
 
-            suffix = args[2];
+            suffix = args[1];
         } else if (sender instanceof Player) {
             player = (Player) sender;
-            suffix = args[1];
+            suffix = args[0];
         } else {
             Messages.sendMessage(sender, "command.general.error.specify-player");
             return false;
@@ -55,20 +59,20 @@ public class Suffix extends SubCommand {
         List<String> result = new ArrayList<>();
         if (sender.hasPermission("utils.suffix.other")) {
             List<String> players = Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
-            if (args.length == 2) {
-                return StringUtil.copyPartialMatches(args[1], players, result);
+            if (args.length == 1) {
+                return StringUtil.copyPartialMatches(args[0], players, result);
             }
 
-            if (!players.contains(args[1])) {
+            if (!players.contains(args[0])) {
                 return result;
             }
 
-            if (args.length == 3) {
-                return StringUtil.copyPartialMatches(args[2], List.of("<suffix>"), result);
-            }
-        } else {
             if (args.length == 2) {
                 return StringUtil.copyPartialMatches(args[1], List.of("<suffix>"), result);
+            }
+        } else {
+            if (args.length == 1) {
+                return StringUtil.copyPartialMatches(args[0], List.of("<suffix>"), result);
             }
         }
 
@@ -77,11 +81,11 @@ public class Suffix extends SubCommand {
 
     @Override
     int getLeastArgsLength() {
-        return 2;
+        return 1;
     }
 
     @Override
     String getUsage() {
-        return "/utils suffix <suffix>";
+        return "/suffix <suffix>";
     }
 }

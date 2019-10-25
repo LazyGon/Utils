@@ -23,7 +23,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.StringUtil;
 
-public class HighJump extends SubCommand {
+public class HighJump extends UtilsCommand {
 
     HighJump(){
     }
@@ -67,12 +67,15 @@ public class HighJump extends SubCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!super.onCommand(sender, command, label, args)) {
+            return false;
+        }
 
         Player player;
-        if (sender instanceof Player && args.length == 1) {
+        if (sender instanceof Player && args.length == 0) {
             player = (Player) sender;
-        } else if (args.length == 2) {
-            player = Bukkit.getPlayer(args[1]);
+        } else if (args.length == 1) {
+            player = Bukkit.getPlayer(args[0]);
             if (player == null) {
                 Messages.sendMessage(sender, "command.general.error.player-is-not-online");
                 return false;
@@ -122,9 +125,9 @@ public class HighJump extends SubCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 2 && sender.hasPermission("utils.high-jump.other")) {
+        if (args.length == 1 && sender.hasPermission("utils.high-jump.other")) {
             List<String> players = Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
-            return StringUtil.copyPartialMatches(args[1], players, new ArrayList<>());
+            return StringUtil.copyPartialMatches(args[0], players, new ArrayList<>());
         }
 
         return List.of();
@@ -132,11 +135,11 @@ public class HighJump extends SubCommand {
 
     @Override
     int getLeastArgsLength() {
-        return 1;
+        return 0;
     }
 
     @Override
     String getUsage() {
-        return "/utils highjump [player]";
+        return "/highjump [player]";
     }
 }

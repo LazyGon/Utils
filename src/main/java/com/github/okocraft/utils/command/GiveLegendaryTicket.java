@@ -14,17 +14,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.StringUtil;
 
-public class GiveLegendaryTicket extends SubCommand {
-
-    GiveLegendaryTicket() {
-    }
+public class GiveLegendaryTicket extends UtilsCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!super.onCommand(sender, command, label, args)) {
+            return false;
+        }
+
         Player player;
 
-        if (args.length > 1) {
-            player = Bukkit.getPlayer(args[1]);
+        if (args.length > 0) {
+            player = Bukkit.getPlayer(args[0]);
             if (player == null) {
                 Messages.sendMessage(sender, "command.general.error.player-is-not-online");
                 return false;
@@ -37,9 +38,9 @@ public class GiveLegendaryTicket extends SubCommand {
         }
 
         int amount = 1;
-        if (args.length > 2) {
+        if (args.length > 1) {
             try {
-                amount = Integer.parseInt(args[2]);
+                amount = Integer.parseInt(args[1]);
             } catch (NumberFormatException ignored) {
             }
         }
@@ -54,16 +55,16 @@ public class GiveLegendaryTicket extends SubCommand {
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         List<String> result = new ArrayList<>();
         List<String> players = Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
-        if (args.length == 2) {
-            return StringUtil.copyPartialMatches(args[1], players, result);
+        if (args.length == 1) {
+            return StringUtil.copyPartialMatches(args[0], players, result);
         }
 
-        if (!players.contains(args[1])) {
+        if (!players.contains(args[0])) {
             return result;
         }
 
-        if (args.length == 3) {
-            return StringUtil.copyPartialMatches(args[2], List.of("1", "2", "4", "8", "16", "32", "64"), result);
+        if (args.length == 2) {
+            return StringUtil.copyPartialMatches(args[1], List.of("1", "2", "4", "8", "16", "32", "64"), result);
         }
 
         return result;
@@ -71,11 +72,11 @@ public class GiveLegendaryTicket extends SubCommand {
 
     @Override
     int getLeastArgsLength() {
-        return 1;
+        return 0;
     }
 
     @Override
     String getUsage() {
-        return "/utils givelegendaryticket [player] [amount]";
+        return "/givelegendaryticket [player] [amount]";
     }
 }

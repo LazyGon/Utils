@@ -11,6 +11,36 @@ prefix-set-command: "lp user %player% meta setprefix 1 %prefix%"
 prefix-remove-command: "lp user %player% meta removeprefix 1 %prefix%"
 suffix-set-command: "lp user %player% meta setsuffix 10 %suffix%"
 
+jail-name-for-auto-punishment: "jail"
+punishment-point-per-warn:
+  - 500
+  - 5000
+  - 50000
+  - 500000
+
+pvp-area-default:
+  smash-mode: true
+  item-unlimited: true
+  world: "lobby_5"
+  pos1:
+    x: 4
+    y: 28
+    z: -42
+  pos2:
+    x: 64
+    y: 53
+    z: 18
+  respawn:
+    x: 34
+    y: 55
+    z: -12
+    yaw: 0
+    pitch: 0
+pvp-area-max-region: 125000
+pvp-area-disabled-worlds:
+  - TT
+  - Playground
+
 legendary-ticket:
   display-name: "§6§lレジェンダリーチケット"
   lore:

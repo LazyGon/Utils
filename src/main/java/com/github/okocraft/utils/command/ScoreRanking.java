@@ -17,25 +17,25 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.util.StringUtil;
 
-public class ScoreRanking extends SubCommand {
-
-	ScoreRanking() {
-	}
+public class ScoreRanking extends UtilsCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!super.onCommand(sender, command, label, args)) {
+            return false;
+        }
 
 		Scoreboard mainScoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
-		Objective objective = mainScoreboard.getObjective(args[1]);
+		Objective objective = mainScoreboard.getObjective(args[0]);
 
 		if (objective == null) {
-			Messages.sendMessage(sender, "command.utils.score-ranking.error.objective-does-not-exist");
+			Messages.sendMessage(sender, "command.score-ranking.error.objective-does-not-exist");
 			return false;
 		}
 
 		int page;
 		try {
-			page = Integer.parseInt(args[2]);
+			page = Integer.parseInt(args[1]);
 			if (page < 1) {
 				throw new NumberFormatException("The page must be more than 1");
 			}
@@ -59,11 +59,11 @@ public class ScoreRanking extends SubCommand {
 		};
 
 		Collections.sort(entries, (e1, e2) -> objective.getScore(e1).getScore() - objective.getScore(e2).getScore());
-		Messages.sendMessage(sender, "command.utils.score-ranking.info.header",
+		Messages.sendMessage(sender, "command.score-ranking.info.header",
 				Map.of("%scoreboard%", objective.getName(), "%page%", page, "%max-page%", maxPage));
 
 		for (int i = 0; i <= entrySize; i++) {
-			Messages.sendMessage(sender, false, "command.utils.score-ranking.info.format", Map.of("%rank%", i + 1, "%entry%",
+			Messages.sendMessage(sender, false, "command.score-ranking.info.format", Map.of("%rank%", i + 1, "%entry%",
 					String.format("%-40s", entries.get(i)), "%score%", objective.getScore(entries.get(i)).getScore()));
 		}
 		return true;
@@ -75,21 +75,21 @@ public class ScoreRanking extends SubCommand {
 		Scoreboard mainScoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
 		List<String> objectives = mainScoreboard.getObjectives().stream()
 				.map(Objective::getName).collect(Collectors.toList());
-		if (args.length == 2) {
-			return StringUtil.copyPartialMatches(args[1], objectives, result);
+		if (args.length == 1) {
+			return StringUtil.copyPartialMatches(args[0], objectives, result);
 		}
 
-		if (!objectives.contains(args[1])) {
+		if (!objectives.contains(args[0])) {
 			return result;
 		}
 
 		int entrySize = (int) mainScoreboard.getEntries().stream()
-				.filter(entry -> mainScoreboard.getObjective(args[1]).getScore(entry).isScoreSet()).count();
+				.filter(entry -> mainScoreboard.getObjective(args[0]).getScore(entry).isScoreSet()).count();
 		int maxPage = entrySize % 9 == 0 ? entrySize / 9 : entrySize / 9 + 1;
 
-		if (args.length == 3) {
+		if (args.length == 2) {
 			List<String> pages = IntStream.rangeClosed(1, maxPage).boxed().map(String::valueOf).collect(Collectors.toList());
-			return StringUtil.copyPartialMatches(args[2], pages, result);
+			return StringUtil.copyPartialMatches(args[1], pages, result);
 		}
 
 		return List.of();
@@ -103,7 +103,7 @@ public class ScoreRanking extends SubCommand {
 
 	@Override
 	String getUsage() {
-		return "/utils scoreranking <scoreboard> [page]";
+		return "/scoreranking <scoreboard> [page]";
 	}
 
 }

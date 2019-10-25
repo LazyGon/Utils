@@ -5,8 +5,39 @@ author: lazy_gon
 api-version: '1.14'
 commands:
   utils:
-    description: Base command of this plugin.
-    aliases: [lazy, lu]
+    description: "Base plugin command."
+  all:
+    description: "Search all entity in specified range."
+  costrepair:
+    description: "Repair items."
+  givelegendaryticket:
+    description: "Give legendary ticket. legendary ticket can be modified with config."
+    aliases: [givelt]
+  highjump:
+    description: "Shoot player above using lavitation effect."
+    aliases: [hj]
+  inactivemoney:
+    description: "Show money owned by inactive players."
+    aliases: [im]
+  moreunbreaking:
+    description: "Upgrade unbreaking enchantment using legendary ticket."
+    aliases: [mu]
+  pvparea:
+    description: "Manipulate PvP area."
+    aliases: [pa]
+  respawn:
+    description: "Force to respawn player."
+    aliases: [rs]
+  scoreranking:
+    description: "Show scoreboard ranking in chat."
+    aliases: [srank]
+  spawner:
+    description: "Gets spawner of specified mob."
+  suffix:
+    description: "Sets suffix. Limitation is based on okocraft rules."
+  uniqueprefix:
+    description: "Manipulate Unique prefix."
+    aliases: [upref]
 
 permissions:
   utils.*:
@@ -17,6 +48,9 @@ permissions:
       utils.uniqueprefix.*: true
       utils.suffix.*: true
       utils.costrepair: true
+      utils.inactivemoney: true
+      utils.moreunbreaking: true
+      utils.pvparea: true
   utils.uniqueprefix.*:
     description: Includes all uniqueprefix command's permission.
     default: op
@@ -33,41 +67,41 @@ permissions:
       utils.uniqueprefix: true
       utils.uniqueprefix.other: true
   utils.scoreranking:
-    description: Permission for command /utils scoreranking <objective> top bottom
+    description: Permission for command /scoreranking <objective> top bottom
     default: op
   utils.uniqueprefix:
-    description: Permission for command /utils uniqueprefix <args...>
+    description: Permission for command /uniqueprefix <args...>
     default: true
   utils.uniqueprefix.add:
-    description: Permission for command /utils uniqueprefix add <prefix>
+    description: Permission for command /uniqueprefix add <prefix>
     default: op
   utils.uniqueprefix.set:
-    description: Permission for command /utils uniqueprefix set <number>
+    description: Permission for command /uniqueprefix set <number>
     default: true
   utils.uniqueprefix.remove:
-    description: Permission for command /utils uniqueprefix remove <number>
+    description: Permission for command /uniqueprefix remove <number>
     default: true
   utils.uniqueprefix.list:
-    description: Permission for command /utils uniqueprefix list
+    description: Permission for command /uniqueprefix list
     default: true
   utils.uniqueprefix.other:
-    description: Permission for other player argument of /utils uniqueprefix command
+    description: Permission for other player argument of /uniqueprefix command
     default: op
   utils.suffix:
-    description: Permission for /utils suffix command
+    description: Permission for /suffix command
     default: op
   utils.suffix.other:
-    description: Permission for other player argument of /utils suffix command
+    description: Permission for other player argument of /suffix command
     default: op
   utils.costrepair:
-    description: Permission for command /utils costrepair [confirm]
+    description: Permission for command /costrepair [confirm]
     default: true
   utils.inactivemoney:
-    description: Permission for command /utils inactivemoney [confirm]
+    description: Permission for command /inactivemoney [confirm]
     default: op
   utils.moreunbreaking:
-    description: Permission for command /utils moreunbreaking
+    description: Permission for command /moreunbreaking
     default: true
-  utils.bypass.creatinghall:
-    description: Permission to bypass creating hall.
-    default: op
+  utils.pvparea:
+    description: Permission for command /pvparea [smashmode|itemunlimited] [true|false]
+    default: true

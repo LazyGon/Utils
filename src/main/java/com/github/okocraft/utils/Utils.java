@@ -7,10 +7,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import net.milkbowl.vault.economy.Economy;
 
-import com.github.okocraft.utils.listener.PlayerDeath;
-import com.github.okocraft.utils.command.UtilsCommand;
+import com.github.okocraft.utils.listener.PlayerPunishmentListener;
+import com.github.okocraft.utils.command.Commands;
+import com.github.okocraft.utils.config.Config;
 import com.github.okocraft.utils.listener.CommandListener;
 import com.github.okocraft.utils.listener.PvEReward;
+import com.github.okocraft.utils.listener.PvPArea;
 
 public class Utils extends JavaPlugin {
 
@@ -21,16 +23,23 @@ public class Utils extends JavaPlugin {
 	@Override
 	public void onEnable() {
 
+		Config.reloadAllConfigs();
+
 		if (!setupEconomy()) {
 			getLogger().severe("Failed to hook vault.");
 			economyEnabled = false;
 		}
 
-		new UtilsCommand();
+		Commands.init();
 
-		new PlayerDeath(this);
+		try {
+			new PvPArea(Config.getDefaultPvPAreaPos1(), Config.getDefaultPvPAreaPos2(), Config.getDefaultPvPAreaRespawn());
+		} catch (IllegalArgumentException e) {
+			getLogger().warning(e.getMessage());
+		}
 		new CommandListener(this);
 		new PvEReward(this);
+		new PlayerPunishmentListener();
 	}
 
 	@Override

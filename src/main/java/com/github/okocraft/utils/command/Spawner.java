@@ -32,11 +32,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.StringUtil;
 
-public class Spawner extends SubCommand implements Listener {
+public class Spawner extends UtilsCommand implements Listener {
 
     private static final NamespacedKey key = new NamespacedKey(plugin, "spawners");
 
     Spawner() {
+        super();
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
@@ -83,14 +84,14 @@ public class Spawner extends SubCommand implements Listener {
     }
 
     @EventHandler
-    private void spawnerSpawn(SpawnerSpawnEvent event) {
+    private void onSpawnerSpawn(SpawnerSpawnEvent event) {
         Block spawner = event.getSpawner().getBlock();
         if (!Config.getSpawnerAllowedWorlds().contains(spawner.getWorld())) {
             event.setCancelled(true);
             return;
         }
 
-        if (!spawner.isBlockPowered() || spawner.isBlockIndirectlyPowered()) {
+        if (spawner.isBlockPowered() || spawner.isBlockIndirectlyPowered()) {
             event.setCancelled(true);
             return;
         }
@@ -143,6 +144,10 @@ public class Spawner extends SubCommand implements Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!super.onCommand(sender, command, label, args)) {
+            return false;
+        }
+        
         if (!(sender instanceof Player)) {
             Messages.sendMessage(sender, "command.general.error.player-only");
             return false;
@@ -150,21 +155,21 @@ public class Spawner extends SubCommand implements Listener {
 
         EntityType type;
         try {
-            type = EntityType.valueOf(args[1].toUpperCase(Locale.ROOT));
+            type = EntityType.valueOf(args[0].toUpperCase(Locale.ROOT));
             if (!type.isSpawnable()) {
                 throw new IllegalArgumentException("The entity is not spawnable");
             }
         } catch (IllegalArgumentException e) {
-            Messages.sendMessage(sender, "command.utils.spawner.error.invalid-mob-type");
+            Messages.sendMessage(sender, "command.spawner.error.invalid-mob-type");
             return false;
         }
 
         PlayerInventory inv = ((Player) sender).getInventory();
 
         int amount = 1;
-        if (args.length > 2) {
+        if (args.length > 1) {
             try {
-                amount = Integer.parseInt(args[2]);
+                amount = Integer.parseInt(args[1]);
             } catch (NumberFormatException ignored) {
             }
         }
@@ -190,16 +195,16 @@ public class Spawner extends SubCommand implements Listener {
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         List<String> result = new ArrayList<>();
         List<String> mobTypes = Arrays.stream(EntityType.values()).filter(EntityType::isSpawnable).map(EntityType::name).collect(Collectors.toList());
-        if (args.length == 2) {
-            return StringUtil.copyPartialMatches(args[1], mobTypes, result);
+        if (args.length == 1) {
+            return StringUtil.copyPartialMatches(args[0], mobTypes, result);
         }
 
-        if (!mobTypes.contains(args[1])) {
+        if (!mobTypes.contains(args[0])) {
             return result;
         }
 
-        if (args.length == 3) {
-            return StringUtil.copyPartialMatches(args[2], List.of("1", "2", "4", "8", "16", "32", "64"), result);
+        if (args.length == 2) {
+            return StringUtil.copyPartialMatches(args[1], List.of("1", "2", "4", "8", "16", "32", "64"), result);
         }
 
         return result;
@@ -207,11 +212,11 @@ public class Spawner extends SubCommand implements Listener {
 
     @Override
     int getLeastArgsLength() {
-        return 2;
+        return 1;
     }
 
     @Override
     String getUsage() {
-        return "/utils spawner <mob-type> [amount]";
+        return "/spawner <mob-type> [amount]";
     }
 }
