@@ -18,17 +18,18 @@ import java.util.Map;
 import com.github.okocraft.utils.config.Messages;
 import com.github.okocraft.utils.config.RepairCostConfig;
 
-public class CostRepair extends SubCommand {
+public class CostRepair extends UtilsCommand {
 
     private static Economy economy = plugin.getEconomy();
 
-    CostRepair() {
-    }
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!super.onCommand(sender, command, label, args)) {
+            return false;
+        }        
+        
         if (!plugin.isEconomyEnabled()) {
-            Messages.sendMessage(sender, "command.utils.cost-repair.error.economy-is-not-enabled");
+            Messages.sendMessage(sender, "command.cost-repair.error.economy-is-not-enabled");
             return false;
         }
 
@@ -40,12 +41,12 @@ public class CostRepair extends SubCommand {
         Player player = (Player) sender;
         ItemStack item = player.getInventory().getItemInMainHand();
         if (item == null || Material.AIR.equals(item.getType())) {
-            Messages.sendMessage(sender, "command.utils.cost-repair.error.cannot-repair-air");
+            Messages.sendMessage(sender, "command.cost-repair.error.cannot-repair-air");
             return false;
         }
 
         if (!(item.getItemMeta() instanceof Damageable)) {
-            Messages.sendMessage(sender, "command.utils.cost-repair.error.cannot-repair-the-item");
+            Messages.sendMessage(sender, "command.cost-repair.error.cannot-repair-the-item");
             return false;
         }
         Damageable damageableMeta = (Damageable) item.getItemMeta();
@@ -53,27 +54,27 @@ public class CostRepair extends SubCommand {
         int currentDamage = damageableMeta.getDamage();
         int maxDurability = (int) item.getType().getMaxDurability();
         if (currentDamage == 0 || maxDurability == 0) {
-            Messages.sendMessage(sender, "command.utils.cost-repair.error.durability-is-full");
+            Messages.sendMessage(sender, "command.cost-repair.error.durability-is-full");
             return false;
         }
         
         double minDamagePercent = RepairCostConfig.getMinDamagedPercent() / 100D;
         double damagePercent = Math.round(((double) currentDamage / (double) maxDurability) * 1000D)/10D;
         if (damagePercent < minDamagePercent) {
-            Messages.sendMessage(sender, "command.utils.cost-repair.error.too-low-damaged-percent", Map.of("%percent%", damagePercent, "%min-percent%", minDamagePercent));
+            Messages.sendMessage(sender, "command.cost-repair.error.too-low-damaged-percent", Map.of("%percent%", damagePercent, "%min-percent%", minDamagePercent));
             return false;
         }
             
         double cost = Math.round(damagePercent * RepairCostConfig.getCost(item)) / 100D;
         cost = Math.min(RepairCostConfig.getMaxCost(), cost);
         
-        if (args.length < 2 || !args[1].equalsIgnoreCase("confirm")) {
-            Messages.sendMessage(sender, "command.utils.cost-repair.info.notify-cost", Map.of("%cost%", cost));
+        if (args.length < 1 || !args[0].equalsIgnoreCase("confirm")) {
+            Messages.sendMessage(sender, "command.cost-repair.info.notify-cost", Map.of("%cost%", cost));
             return true;
         }
         
         if (economy.getBalance(player) < cost) {
-            Messages.sendMessage(sender, "command.utils.cost-repair.error.not-enough-money");
+            Messages.sendMessage(sender, "command.cost-repair.error.not-enough-money");
             return false;
         }
 
@@ -88,8 +89,8 @@ public class CostRepair extends SubCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 2) {    
-            return StringUtil.copyPartialMatches(args[1], List.of("confirm"), new ArrayList<>());
+        if (args.length == 1) {    
+            return StringUtil.copyPartialMatches(args[0], List.of("confirm"), new ArrayList<>());
         }
 
         return List.of();
@@ -97,11 +98,11 @@ public class CostRepair extends SubCommand {
 
     @Override
     int getLeastArgsLength() {
-        return 1;
+        return 0;
     }
 
     @Override
     String getUsage() {
-        return "/utils costrepair [confirm]";
+        return "/costrepair [confirm]";
     }
 }

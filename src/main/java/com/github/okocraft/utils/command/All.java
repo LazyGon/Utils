@@ -12,22 +12,23 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
-public class All extends SubCommand {
-
-    All() {
-    }
+public class All extends UtilsCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!super.onCommand(sender, command, label, args)) {
+            return false;
+        }
+        
         if (!(sender instanceof Player)) {
             Messages.sendMessage(sender, "command.general.error.player-only");
             return false;
         }
 
         int radius = 32;
-        if (args.length > 1) {
+        if (args.length > 0) {
             try {
-                radius = Integer.parseInt(args[1]);
+                radius = Integer.parseInt(args[0]);
             } catch (NumberFormatException ignored) {
             }
         }
@@ -41,13 +42,13 @@ public class All extends SubCommand {
         loc.setY(128);
         
         int entities = player.getWorld().getNearbyEntities(loc, radius, 127, radius).size();
-        Messages.sendMessage(sender, "command.utils.all.info.result", Map.of("%amount%", entities, "%radius%", radius));
+        Messages.sendMessage(sender, "command.all.info.result", Map.of("%amount%", entities, "%radius%", radius));
 		return true;
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 2) {
+        if (args.length == 1) {
             return StringUtil.copyPartialMatches(args[1], List.of("2", "4", "8", "16", "32", "64", "128"), new ArrayList<>());
         }
 
@@ -55,17 +56,12 @@ public class All extends SubCommand {
     }
 
     @Override
-    String getName() {
-        return "all";
-    }
-
-    @Override
     int getLeastArgsLength() {
-        return 1;
+        return 0;
     }
 
     @Override
     String getUsage() {
-        return "/utils all [radius]";
+        return "/all [radius]";
     }
 }

@@ -15,18 +15,22 @@ import org.bukkit.util.StringUtil;
 
 import net.milkbowl.vault.economy.Economy;
 
-public class InactiveMoney extends SubCommand {
+public class InactiveMoney extends UtilsCommand {
 
     InactiveMoney() {
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		Economy econ = plugin.getEconomy();
+        if (!super.onCommand(sender, command, label, args)) {
+            return false;
+        }
+        
+        Economy econ = plugin.getEconomy();
 
 		long day;
         try {
-            day = Long.parseLong(args[1]);
+            day = Long.parseLong(args[0]);
             if (day < 0) {
                 throw new NumberFormatException("The number must be positive.");
             }
@@ -45,8 +49,8 @@ public class InactiveMoney extends SubCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 2) {
-            return StringUtil.copyPartialMatches(args[1], List.of("14, 30, 60, 360"), new ArrayList<>());
+        if (args.length == 1) {
+            return StringUtil.copyPartialMatches(args[0], List.of("14, 30, 60, 360"), new ArrayList<>());
         }
 
         return List.of();
@@ -54,11 +58,11 @@ public class InactiveMoney extends SubCommand {
 
     @Override
     int getLeastArgsLength() {
-        return 2;
+        return 1;
     }
 
     @Override
     String getUsage() {
-        return "/utils inactivemoney <day>";
+        return "/inactivemoney <day>";
     }
 }

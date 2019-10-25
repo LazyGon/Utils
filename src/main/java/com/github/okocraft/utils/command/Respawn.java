@@ -12,21 +12,25 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
-public class Respawn extends SubCommand {
+public class Respawn extends UtilsCommand {
 
     Respawn() {
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        Player player = Bukkit.getPlayer(args[1]);
+        if (!super.onCommand(sender, command, label, args)) {
+            return false;
+        }
+        
+        Player player = Bukkit.getPlayer(args[0]);
         if (player == null) {
-            Messages.sendMessage(sender, "command.general.error.player-is-not-online");
+            Messages.sendMessage(sender, "command.respawn.error.player-is-not-online");
             return false;
         }
 
         if (!player.isDead()) {
-            Messages.sendMessage(sender, "command.utils.respawn.player-is-alive");
+            Messages.sendMessage(sender, "command.respawn.error.player-is-alive");
             return false;
         }
 
@@ -37,8 +41,8 @@ public class Respawn extends SubCommand {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         List<String> players = Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
-        if (args.length == 2) {
-            return StringUtil.copyPartialMatches(args[1], players, new ArrayList<>());
+        if (args.length == 1) {
+            return StringUtil.copyPartialMatches(args[0], players, new ArrayList<>());
         }
 
         return List.of();
@@ -46,11 +50,11 @@ public class Respawn extends SubCommand {
 
     @Override
     int getLeastArgsLength() {
-        return 2;
+        return 1;
     }
 
     @Override
     String getUsage() {
-        return "/utils respawn <player>";
+        return "/respawn <player>";
     }
 }
