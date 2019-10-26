@@ -73,7 +73,7 @@ public class CommandListener implements Listener {
             return;
         }
 
-        if (event.getPlayer().getWorld().getName().equalsIgnoreCase("Playgound")) {
+        if (event.getPlayer().getWorld().getName().equalsIgnoreCase("Playground")) {
             return;
         }
 
