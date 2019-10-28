@@ -43,7 +43,7 @@ public class InactiveMoney extends UtilsCommand {
 				.filter(OfflinePlayer::hasPlayedBefore)
 				.filter(player -> (System.currentTimeMillis() - player.getLastPlayed()) / (1000 * 3600 * 24) > day)
 				.mapToDouble(econ::getBalance).sum();
-		Messages.sendMessage(sender, "command.utils.inactive-money.result", Map.of("%total%", totalInactiveMoney));
+		Messages.sendMessage(sender, "command.inactive-money.result", Map.of("%total%", totalInactiveMoney));
 		return true;
     }
 

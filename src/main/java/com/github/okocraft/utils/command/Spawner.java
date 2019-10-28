@@ -185,7 +185,7 @@ public class Spawner extends UtilsCommand implements Listener {
         spawner.setItemMeta(spawnerMeta);
         spawner.setAmount(amount);
         if (!inv.addItem(spawner).isEmpty()) {
-            Messages.sendMessage(sender, "command.utils.spawner.inventory-space-is-not-enough");
+            Messages.sendMessage(sender, "command.spawner.inventory-space-is-not-enough");
         }
 
         return true;
