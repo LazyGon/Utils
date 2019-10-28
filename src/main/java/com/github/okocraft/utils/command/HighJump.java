@@ -94,11 +94,11 @@ public class HighJump extends UtilsCommand {
         long current = System.currentTimeMillis();
 
         if (cooldown > current) {
-            Messages.sendMessage(sender, "command.high-jump.error.in-cooldown");
+            Messages.sendMessage(sender, "command.highjump.error.in-cooldown");
             return false;
         }
 
-        Messages.sendMessage(sender, "command.high-jump.info.high-jump");
+        Messages.sendMessage(sender, "command.highjump.info.highjump");
         player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 20, 76), true);
 
         FallDamageDisabler fallDamageDisabler = new FallDamageDisabler(player);
@@ -125,7 +125,7 @@ public class HighJump extends UtilsCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 1 && sender.hasPermission("utils.high-jump.other")) {
+        if (args.length == 1 && sender.hasPermission("utils.highjump.other")) {
             List<String> players = Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
             return StringUtil.copyPartialMatches(args[0], players, new ArrayList<>());
         }
