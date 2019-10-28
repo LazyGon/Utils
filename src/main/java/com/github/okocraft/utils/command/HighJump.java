@@ -94,11 +94,11 @@ public class HighJump extends UtilsCommand {
         long current = System.currentTimeMillis();
 
         if (cooldown > current) {
-            Messages.sendMessage(sender, "command.utils.high-jump.error.in-cooldown");
+            Messages.sendMessage(sender, "command.high-jump.error.in-cooldown");
             return false;
         }
 
-        Messages.sendMessage(sender, "command.utils.high-jump.info.high-jump");
+        Messages.sendMessage(sender, "command.high-jump.info.high-jump");
         player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 20, 76), true);
 
         FallDamageDisabler fallDamageDisabler = new FallDamageDisabler(player);
