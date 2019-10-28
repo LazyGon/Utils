@@ -50,7 +50,7 @@ public class InactiveMoney extends UtilsCommand {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 1) {
-            return StringUtil.copyPartialMatches(args[0], List.of("14, 30, 60, 360"), new ArrayList<>());
+            return StringUtil.copyPartialMatches(args[0], List.of("14", "30", "60", "360"), new ArrayList<>());
         }
 
         return List.of();
