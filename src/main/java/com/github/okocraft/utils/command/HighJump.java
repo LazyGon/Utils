@@ -74,7 +74,12 @@ public class HighJump extends UtilsCommand {
         Player player;
         if (sender instanceof Player && args.length == 0) {
             player = (Player) sender;
-        } else if (args.length == 1) {
+        } else if (args.length == 1) {   
+            if (!sender.hasPermission("utils.highjump.other")) {
+                Messages.sendMessage(sender, "command.general.error.no-permission");
+                return false;
+            }
+
             player = Bukkit.getPlayer(args[0]);
             if (player == null) {
                 Messages.sendMessage(sender, "command.general.error.player-is-not-online");
@@ -85,10 +90,6 @@ public class HighJump extends UtilsCommand {
             return false;
         }
 
-        if (!sender.hasPermission("utils.highjump.other")) {
-            Messages.sendMessage(sender, "command.general.error.no-permission");
-            return false;
-        }
 
         long cooldown = cooldowns.getOrDefault(player, 0L);
         long current = System.currentTimeMillis();
