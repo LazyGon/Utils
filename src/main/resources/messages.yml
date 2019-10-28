@@ -33,10 +33,10 @@ command:
       not-enough-money: "&cお金が足りません。"
       item-is-not-damaged: "&c耐久値が減っていません。"
       too-low-damaged-percent: "&c減っている耐久値の割合が少なすぎます。(%percent% > %min-percent%)"
-  high-jump:
+  highjump:
     description: "&7空高く舞い上がります。"
     info:
-      high-jump: "&7ハイジャンプ!"
+      highjump: "&7ハイジャンプ!"
     error:
       in-cooldown: "&7クールダウン中..."
   inactive-money:

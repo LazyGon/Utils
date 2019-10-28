@@ -105,3 +105,9 @@ permissions:
   utils.pvparea:
     description: Permission for command /pvparea [smashmode|itemunlimited] [true|false]
     default: true
+  utils.highjump:
+    description: Permission for command /highjump
+    default: op
+  utils.highjump.other:
+    description: Permission for command /highjump [player]
+    default: op
