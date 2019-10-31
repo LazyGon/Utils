@@ -3,6 +3,7 @@ version: ${project.version}
 main: com.github.okocraft.utils.Utils
 author: lazy_gon
 api-version: '1.14'
+softdepend: ["WorldEdit", "WorldGuard"]
 commands:
   utils:
     description: "Base plugin command."
