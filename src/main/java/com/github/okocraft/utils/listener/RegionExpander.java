@@ -1,6 +1,9 @@
 package com.github.okocraft.utils.listener;
 
+import java.util.Map;
+
 import com.github.okocraft.utils.Utils;
+import com.github.okocraft.utils.config.Messages;
 import com.sk89q.worldedit.IncompleteRegionException;
 import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.WorldEdit;
@@ -10,6 +13,7 @@ import com.sk89q.worldedit.extension.platform.permission.ActorSelectorLimits;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.world.World;
+import com.sk89q.worldguard.WorldGuard;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -44,6 +48,17 @@ public class RegionExpander implements Listener {
         }
         World playerWorld = BukkitAdapter.adapt(event.getPlayer().getWorld());
         Player player = BukkitAdapter.adapt(event.getPlayer());
+
+
+        int maxCount = WorldGuard.getInstance().getPlatform().getGlobalStateManager().get(playerWorld).maxRegionCountPerPlayer;
+        long regionCount = WorldGuard.getInstance().getPlatform().getRegionContainer().get(playerWorld).getRegions().values().stream().filter(region -> region.getOwners().contains(player.getUniqueId())).count();
+        
+        if (maxCount <= regionCount) {
+            Messages.sendMessage(event.getPlayer(), false, "listener.wg-gui.too-many-regions", Map.of("%max-count%", maxCount));
+            event.setMessage("q");
+            return;
+        }
+        
         LocalSession session = WorldEdit.getInstance().getSessionManager().get(player);
         Region selection;
         try {
