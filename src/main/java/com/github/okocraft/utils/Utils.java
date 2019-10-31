@@ -13,6 +13,7 @@ import com.github.okocraft.utils.config.Config;
 import com.github.okocraft.utils.listener.CommandListener;
 import com.github.okocraft.utils.listener.PvEReward;
 import com.github.okocraft.utils.listener.PvPArea;
+import com.github.okocraft.utils.listener.RegionExpander;
 
 public class Utils extends JavaPlugin {
 
@@ -31,6 +32,10 @@ public class Utils extends JavaPlugin {
 		}
 
 		Commands.init();
+
+		if (Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {
+			RegionExpander.getInstance().startListener();
+		}
 
 		try {
 			new PvPArea(Config.getDefaultPvPAreaPos1(), Config.getDefaultPvPAreaPos2(), Config.getDefaultPvPAreaRespawn());
