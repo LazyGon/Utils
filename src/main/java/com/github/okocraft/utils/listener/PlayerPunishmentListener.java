@@ -31,15 +31,7 @@ public class PlayerPunishmentListener implements Listener {
             return;
         }
 
-        int warns;
-        try {
-            warns = Integer.parseInt(event.getCurrentWarns());
-        } catch (NumberFormatException e) {
-            System.out.println(event.getCurrentWarns());
-            e.printStackTrace();
-            return;
-        }
-
+        int warns = event.getCurrentWarns();
         List<Integer> warnPointList = Config.getPunishmentPointPerWarns();
         if (warnPointList.isEmpty()) {
             return;
@@ -63,7 +55,6 @@ public class PlayerPunishmentListener implements Listener {
         }
 
         String uuidString = convertUUIDString(event.getUuid());
-        System.out.println(uuidString);
         OfflinePlayer punishedPlayer = Bukkit.getOfflinePlayer(UUID.fromString(uuidString));
 
         if (punishedPlayer.isOnline()) {
