@@ -208,7 +208,7 @@ public class UniquePrefix extends UtilsCommand {
     @SuppressWarnings("deprecation")
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         List<String> result = new ArrayList<>();
-        List<String> subCommands = Arrays.asList("add", "set", "remove", "list");
+        List<String> subCommands = new ArrayList<>(Arrays.asList("add", "set", "remove", "list"));
         subCommands.removeIf(commandName -> !sender.hasPermission("utils.uniqueprefix." + commandName));
 
         if (args.length == 1) {
