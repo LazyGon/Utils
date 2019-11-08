@@ -43,14 +43,9 @@ public class Suffix extends UtilsCommand {
             return false;
         }
 
-        System.out.println(suffix);
         char suffixChar = suffix.replaceAll("&[0-9a-f]", "").charAt(0);
-        System.out.println(suffix);
         suffix = suffix.substring(0, suffix.indexOf(suffixChar) + 1);
-        System.out.println(suffix);
         String suffixCommand = Config.getSuffixSetCommand().replace("%player%", player.getName()).replace("%suffix%", suffix);
-        System.out.println(suffix);
-        System.out.println(suffixCommand);
         return Bukkit.dispatchCommand(Bukkit.getConsoleSender(), suffixCommand);
     }
 
