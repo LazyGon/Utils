@@ -101,8 +101,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <target>1.8</target>
-                    <source>1.8</source>
+                    <target>${java.version}</target>
+                    <source>${java.version}</source>
                     <encoding>UTF-8</encoding>
                     <useIncrementalCompilation>false</useIncrementalCompilation>
                 </configuration>
@@ -113,6 +113,5 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>9</java.version>
-        <maven.compiler.release>${java.version}</maven.compiler.release>
     </properties>
 </project>
