@@ -29,11 +29,9 @@ public class Commands implements CommandExecutor, TabCompleter {
         new All();
         new CostRepair();
         new GiveLegendaryTicket();
-        new HighJump();
         new InactiveMoney();
         new MoreUnbreaking();
         new PvPArea();
-        new Respawn();
         new ScoreRanking();
         new Spawner();
         new Suffix();
