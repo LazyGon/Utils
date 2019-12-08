@@ -1,5 +1,6 @@
 package com.github.okocraft.utils.listener;
 
+import java.math.BigInteger;
 import java.util.Map;
 
 import com.github.okocraft.utils.Utils;
@@ -70,11 +71,28 @@ public class RegionExpander implements Listener {
         BlockVector3 min = selection.getMinimumPoint();
         BlockVector3 max = selection.getMaximumPoint();
 
+        int maxVolume = WorldGuard.getInstance().getPlatform().getGlobalStateManager().get(playerWorld).maxClaimVolume;
+        if (isExceedingMaxVolume(playerWorld, min, max)) {
+            Messages.sendMessage(event.getPlayer(), false, "listener.wg-gui.too-large-region", Map.of("%max-volume%", maxVolume));
+            event.setMessage("q");
+            return;
+        }
+
         BlockVector3 expandedMin = BlockVector3.at(min.getX(), 0, min.getZ());
         BlockVector3 expandedMax = BlockVector3.at(max.getX(), 255, max.getZ());
 
         ActorSelectorLimits limit = ActorSelectorLimits.forActor(player);
         session.getRegionSelector(playerWorld).selectPrimary(expandedMin, limit);
         session.getRegionSelector(playerWorld).selectSecondary(expandedMax, limit);
+    }
+
+    private static boolean isExceedingMaxVolume(World world, BlockVector3 min, BlockVector3 max) {
+        int maxVolume = WorldGuard.getInstance().getPlatform().getGlobalStateManager().get(world).maxClaimVolume;
+
+        BigInteger maxX = BigInteger.valueOf(max.getBlockX());
+        BigInteger maxZ = BigInteger.valueOf(max.getBlockZ());
+        BigInteger minX = BigInteger.valueOf(min.getBlockX());
+        BigInteger minZ = BigInteger.valueOf(min.getBlockZ());
+        return maxX.subtract(minX).multiply(maxZ.subtract(minZ)).abs().compareTo(BigInteger.valueOf(maxVolume)) == 1;
     }
 }
