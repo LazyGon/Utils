@@ -44,12 +44,12 @@ public class RegionExpander implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onCreateRegionWithWGGUI(AsyncPlayerChatEvent event) {
-        if (!event.getMessage().equals("create")) {
+        if (!event.getMessage().equals("create") && !event.getMessage().equals("edit")) {
             return;
         }
+
         World playerWorld = BukkitAdapter.adapt(event.getPlayer().getWorld());
         Player player = BukkitAdapter.adapt(event.getPlayer());
-
 
         int maxCount = WorldGuard.getInstance().getPlatform().getGlobalStateManager().get(playerWorld).maxRegionCountPerPlayer;
         long regionCount = WorldGuard.getInstance().getPlatform().getRegionContainer().get(playerWorld).getRegions().values().stream().filter(region -> region.getOwners().contains(player.getUniqueId())).count();
@@ -64,7 +64,7 @@ public class RegionExpander implements Listener {
         Region selection;
         try {
             selection = session.getSelection(playerWorld);
-        } catch (IncompleteRegionException inogred) {
+        } catch (IncompleteRegionException ignored) {
             return;
         }
 
