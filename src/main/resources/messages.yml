@@ -101,6 +101,7 @@ command:
 listener:
   wg-gui:
     too-many-regions: "&3&l[WG-GUI] &c保護の数が多すぎます。保護の最大数は %max-count% 個です。"
+    too-large-region: "&3&l[WG-GUI] &c保護が大きすぎます。保護の最大の大きさは %max-volume% ブロックです。"
   spawner:
     spawner-is-stopped: "&7このスポナーは湧き止めされています。"
     spawner-is-not-stopped: "&cこのスポナーは湧き止めされていません。"
