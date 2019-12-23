@@ -62,7 +62,7 @@ public class ScoreRanking extends UtilsCommand {
 		Messages.sendMessage(sender, "command.score-ranking.info.header",
 				Map.of("%scoreboard%", objective.getName(), "%page%", page, "%max-page%", maxPage));
 
-		for (int i = 0; i <= entrySize; i++) {
+		for (int i = 0; i < entrySize; i++) {
 			Messages.sendMessage(sender, false, "command.score-ranking.info.format", Map.of("%rank%", i + 1, "%entry%",
 					String.format("%-40s", entries.get(i)), "%score%", objective.getScore(entries.get(i)).getScore()));
 		}
