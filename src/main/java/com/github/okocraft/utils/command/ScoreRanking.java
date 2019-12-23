@@ -50,15 +50,7 @@ public class ScoreRanking extends UtilsCommand {
 		int maxPage = entrySize % 9 == 0 ? entrySize / 9 : entrySize / 9 + 1;
 		page = Math.min(page, maxPage);
 
-		new BukkitRunnable() {
-
-			@Override
-			public void run() {
-
-			}
-		};
-
-		Collections.sort(entries, (e1, e2) -> objective.getScore(e1).getScore() - objective.getScore(e2).getScore());
+		Collections.sort(entries, (e1, e2) -> objective.getScore(e2).getScore() - objective.getScore(e1).getScore());
 		Messages.sendMessage(sender, "command.score-ranking.info.header",
 				Map.of("%scoreboard%", objective.getName(), "%page%", page, "%max-page%", maxPage));
 
