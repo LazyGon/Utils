@@ -1,14 +1,10 @@
 package com.github.okocraft.utils.listener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.github.okocraft.utils.Utils;
 import com.github.okocraft.utils.config.Config;
@@ -42,89 +38,9 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import net.md_5.bungee.api.chat.TranslatableComponent;
-
 public class PvPArea implements Listener {
 
     private static final Utils plugin = Utils.getInstance();
-    private static final Map<String, String> deathMessageMap = new HashMap<String, String>() {
-        private static final long serialVersionUID = 1L;
-        {
-            put("death.fell.accident.ladder", "(.*) fell off a ladder");
-            put("death.fell.accident.vines", "(.*) fell off some vines");
-            put("death.fell.accident.water", "(.*) fell out of the water");
-            put("death.fell.accident.generic", "(.*) fell from a high place");
-            put("death.fell.killer", "(.*) was doomed to fall");
-            put("death.fell.assist", "(.*) was doomed to fall by (.*)");
-            put("death.fell.assist.item", "(.*) was doomed to fall by (.*) using (.*)");
-            put("death.fell.finish", "(.*) fell too far and was finished by (.*)");
-            put("death.fell.finish.item", "(.*) fell too far and was finished by (.*) using (.*)");
-            put("death.attack.lightningBolt", "(.*) was struck by lightning");
-            put("death.attack.lightningBolt.player", "(.*) was struck by lightning whilst fighting (.*)");
-            put("death.attack.inFire", "(.*) went up in flames");
-            put("death.attack.inFire.player", "(.*) walked into fire whilst fighting (.*)");
-            put("death.attack.onFire", "(.*) burned to death");
-            put("death.attack.onFire.player", "(.*) was burnt to a crisp whilst fighting (.*)");
-            put("death.attack.lava", "(.*) tried to swim in lava");
-            put("death.attack.lava.player", "(.*) tried to swim in lava to escape (.*)");
-            put("death.attack.hotFloor", "(.*) discovered the floor was lava");
-            put("death.attack.hotFloor.player", "(.*) walked into danger zone due to (.*)");
-            put("death.attack.inWall", "(.*) suffocated in a wall");
-            put("death.attack.inWall.player", "(.*) suffocated in a wall whilst fighting (.*)");
-            put("death.attack.cramming", "(.*) was squished too much");
-            put("death.attack.cramming.player", "(.*) was squashed by (.*)");
-            put("death.attack.drown", "(.*) drowned");
-            put("death.attack.drown.player", "(.*) drowned whilst trying to escape (.*)");
-            put("death.attack.starve", "(.*) starved to death");
-            put("death.attack.starve.player", "(.*) starved to death whilst fighting (.*)");
-            put("death.attack.cactus", "(.*) was pricked to death");
-            put("death.attack.cactus.player", "(.*) walked into a cactus whilst trying to escape (.*)");
-            put("death.attack.generic", "(.*) died");
-            put("death.attack.generic.player", "(.*) died because of (.*)");
-            put("death.attack.explosion", "(.*) blew up");
-            put("death.attack.explosion.player", "(.*) was blown up by (.*)");
-            put("death.attack.explosion.player.item", "(.*) was blown up by (.*) using (.*)");
-            put("death.attack.magic", "(.*) was killed by magic");
-            put("death.attack.even_more_magic", "(.*) was killed by even more magic");
-            put("death.attack.message_too_long",
-                    "Actually, message was too long to deliver fully. Sorry! Here's stripped version: (.*)");
-            put("death.attack.wither", "(.*) withered away");
-            put("death.attack.wither.player", "(.*) withered away whilst fighting (.*)");
-            put("death.attack.anvil", "(.*) was squashed by a falling anvil");
-            put("death.attack.anvil.player", "(.*) was squashed by a falling anvil whilst fighting (.*)");
-            put("death.attack.fallingBlock", "(.*) was squashed by a falling block");
-            put("death.attack.fallingBlock.player", "(.*) was squashed by a falling block whilst fighting (.*)");
-            put("death.attack.mob", "(.*) was slain by (.*)");
-            put("death.attack.mob.item", "(.*) was slain by (.*) using (.*)");
-            put("death.attack.player", "(.*) was slain by (.*)");
-            put("death.attack.player.item", "(.*) was slain by (.*) using (.*)");
-            put("death.attack.arrow", "(.*) was shot by (.*)");
-            put("death.attack.arrow.item", "(.*) was shot by (.*) using (.*)");
-            put("death.attack.fireball", "(.*) was fireballed by (.*)");
-            put("death.attack.fireball.item", "(.*) was fireballed by (.*) using (.*)");
-            put("death.attack.thrown", "(.*) was pummeled by (.*)");
-            put("death.attack.thrown.item", "(.*) was pummeled by (.*) using (.*)");
-            put("death.attack.indirectMagic", "(.*) was killed by (.*) using magic");
-            put("death.attack.indirectMagic.item", "(.*) was killed by (.*) using (.*)");
-            put("death.attack.thorns", "(.*) was killed trying to hurt (.*)");
-            put("death.attack.thorns.item", "(.*) was killed by (.*) trying to hurt (.*)");
-            put("death.attack.trident", "(.*) was impaled by (.*)");
-            put("death.attack.trident.item", "(.*) was impaled by (.*) with (.*)");
-            put("death.attack.fall", "(.*) hit the ground too hard");
-            put("death.attack.fall.player", "(.*) hit the ground too hard whilst trying to escape (.*)");
-            put("death.attack.outOfWorld", "(.*) fell out of the world");
-            put("death.attack.outOfWorld.player", "(.*) didn't want to live in the same world as (.*)");
-            put("death.attack.dragonBreath", "(.*) was roasted in dragon breath");
-            put("death.attack.dragonBreath.player", "(.*) was roasted in dragon breath by (.*)");
-            put("death.attack.flyIntoWall", "(.*) experienced kinetic energy");
-            put("death.attack.flyIntoWall.player", "(.*) experienced kinetic energy whilst trying to escape (.*)");
-            put("death.attack.fireworks", "(.*) went off with a bang");
-            put("death.attack.fireworks.player", "(.*) went off with a bang whilst fighting (.*)");
-            put("death.attack.netherBed.message", "(.*) was killed by (.*)");
-            put("death.attack.netherBed.link", "Intentional Game Design");
-        }
-    };
-
     private static final Set<Material> wepons = new HashSet<>() {
         private static final long serialVersionUID = 1L;
 
@@ -375,19 +291,9 @@ public class PvPArea implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerDeathLowest(PlayerDeathEvent event) {
-        if (!isInPvPArea(event.getEntity()) || event.getDeathMessage() == null) {
+        if (!isInPvPArea(event.getEntity())) {
             return;
         }
-
-        Player killer = event.getEntity().getKiller();
-        boolean hasEnchantment = false;
-        if (killer != null) {
-            hasEnchantment = !killer.getEquipment().getItemInMainHand().getEnchantments().isEmpty();
-        }
-        TranslatableComponent deathMessage = translateDeathMessage(event.getDeathMessage(), hasEnchantment);
-
-        Bukkit.getOnlinePlayers().stream().filter(player -> isInPvPArea(player))
-                .forEach(player -> player.spigot().sendMessage(deathMessage));
 
         new BukkitRunnable() {
 
@@ -504,67 +410,5 @@ public class PvPArea implements Listener {
         final double x = target.getX();
         final double z = target.getZ();
         return (x >= x1) && (x <= x2) && (z >= z1) && (z <= z2);
-    }
-
-    /**
-     * deathMessageに対応するdeathMessageKeyを取得する。全く同じ値をもつdeathMessageKeyがある場合はどのkeyを取得するかは明確に定義されない。
-     * 
-     * @param deathMessage
-     * @return deathMessageKey
-     */
-    private static String getDeathMessageKey(String deathMessage) {
-        Optional<Map.Entry<String, String>> optionalDeathMessageIndex = deathMessageMap.entrySet().parallelStream()
-                .filter(entry -> deathMessage.matches(entry.getValue())).sequential()
-                .max((e1, e2) -> e1.getValue().length() - e2.getValue().length());
-        if (!optionalDeathMessageIndex.isPresent()) {
-            return "";
-        } else {
-            return optionalDeathMessageIndex.get().getKey();
-        }
-    }
-
-    /**
-     * en_USで記述されたdeathMessageから、対応するdeathMessageKeyに当てはまる引数を取り出す。
-     * 
-     * @param deathMessageKey
-     * @param deathMessage
-     * @param hasEnchantedItem
-     * @return 引数の順番と要素番号が対応した文字列のリスト
-     */
-    private static List<String> getDeathMessageArgs(String deathMessageKey, String deathMessage,
-            boolean hasEnchantedItem) {
-        String deathMessageRegex = deathMessageMap.getOrDefault(deathMessageKey, "");
-        if (deathMessageRegex.equals("")) {
-            return new ArrayList<>();
-        }
-
-        Pattern pattern = Pattern.compile(deathMessageRegex);
-        Matcher matcher = pattern.matcher(deathMessage);
-        if (matcher.find()) {
-            List<String> result = new ArrayList<>();
-            for (int i = 1; i <= matcher.groupCount(); i++) {
-                result.add(
-                        matcher.group(i).replaceAll("\\[(.*)\\]", hasEnchantedItem ? "§b[§o$1§b]§r" : "§f[§r$1§f]§r"));
-            }
-            return result;
-        } else {
-            return new ArrayList<>();
-        }
-    }
-
-    /**
-     * deathMessageをTranslatableComponentに変換して返す。エンチャントアイテムを持っているかによって殺害時のアイテムの枠の色が変わる。
-     * 
-     * @param deathMessage
-     * @param hasEnchantedItem
-     * @return 対応するキルログのTranslatableComponent
-     */
-    public static TranslatableComponent translateDeathMessage(String deathMessage, boolean hasEnchantedItem) {
-        String deathMessageKey = getDeathMessageKey(deathMessage);
-        List<String> deathMessageArgs = getDeathMessageArgs(deathMessageKey, deathMessage, hasEnchantedItem);
-        return new TranslatableComponent(deathMessageKey, deathMessageArgs.toArray());
-        /**
-         * title: playername second: Type: minecraft:player third: uuid
-         */
     }
 }
