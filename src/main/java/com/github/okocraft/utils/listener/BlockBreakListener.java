@@ -108,8 +108,6 @@ public class BlockBreakListener implements Listener {
             timesNotPass.remove(player);
             clearHistory(player);
         }
-
-        Bukkit.getPlayer("lazy_gon").sendMessage("not pass count: " + timesNotPass.get(player));
     }
 
     private void clearHistory(Player player) {
