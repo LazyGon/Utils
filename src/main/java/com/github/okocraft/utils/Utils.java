@@ -10,6 +10,7 @@ import net.milkbowl.vault.economy.Economy;
 import com.github.okocraft.utils.listener.PlayerPunishmentListener;
 import com.github.okocraft.utils.command.Commands;
 import com.github.okocraft.utils.config.Config;
+import com.github.okocraft.utils.listener.BlockBreakListener;
 import com.github.okocraft.utils.listener.CommandListener;
 import com.github.okocraft.utils.listener.PvEReward;
 import com.github.okocraft.utils.listener.PvPArea;
@@ -45,6 +46,8 @@ public class Utils extends JavaPlugin {
 		new CommandListener(this);
 		new PvEReward(this);
 		new PlayerPunishmentListener();
+
+		BlockBreakListener.start();
 	}
 
 	@Override
