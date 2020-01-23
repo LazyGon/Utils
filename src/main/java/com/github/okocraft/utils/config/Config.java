@@ -23,6 +23,10 @@ public final class Config {
     private Config() {
     }
 
+    public static List<String> getHallCreationDeniedWorlds() {
+        return get().getStringList("hall-creation-denied-worlds");
+    }
+
     public static List<String> getPvPAreaDisabledWorlds() {
         return get().getStringList("pvp-area-disabled-worlds");
     }
