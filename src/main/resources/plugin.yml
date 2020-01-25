@@ -7,8 +7,6 @@ softdepend: ["WorldEdit", "WorldGuard"]
 commands:
   utils:
     description: "Base plugin command."
-  all:
-    description: "Search all entity in specified range."
   costrepair:
     description: "Repair items."
   givelegendaryticket:
