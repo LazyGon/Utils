@@ -14,9 +14,6 @@ commands:
   givelegendaryticket:
     description: "Give legendary ticket. legendary ticket can be modified with config."
     aliases: [givelt]
-  highjump:
-    description: "Shoot player above using lavitation effect."
-    aliases: [hj]
   inactivemoney:
     description: "Show money owned by inactive players."
     aliases: [im]
@@ -26,9 +23,6 @@ commands:
   pvparea:
     description: "Manipulate PvP area."
     aliases: [pa]
-  respawn:
-    description: "Force to respawn player."
-    aliases: [rs]
   scoreranking:
     description: "Show scoreboard ranking in chat."
     aliases: [srank]
@@ -104,9 +98,3 @@ permissions:
   utils.pvparea:
     description: Permission for command /pvparea [smashmode|itemunlimited] [true|false]
     default: true
-  utils.highjump:
-    description: Permission for command /highjump
-    default: op
-  utils.highjump.other:
-    description: Permission for command /highjump [player]
-    default: op
