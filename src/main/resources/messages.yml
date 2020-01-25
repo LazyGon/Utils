@@ -82,10 +82,6 @@ command:
       format: "&b%rank%&7位: &b%entrt% &7- &b%score%"
     error:
       objective-does-not-exist: "&cその名前のスコアボードは見つかりませんでした。"
-  spawner:
-    description: "&7スポナーを手に入れます。"
-    error:
-      inventory-space-is-not-enough: "&cインベントリの空きが十分ではないため、入らなかったスポナーは消滅しました。"
   unique-prefix:
     description: "&7固有称号を操作します。"
     info:
@@ -102,7 +98,3 @@ listener:
   wg-gui:
     too-many-regions: "&3&l[WG-GUI] &c保護の数が多すぎます。保護の最大数は %max-count% 個です。"
     too-large-region: "&3&l[WG-GUI] &c保護が大きすぎます。保護の最大の大きさは %max-volume% ブロックです。"
-  spawner:
-    spawner-is-stopped: "&7このスポナーは湧き止めされています。"
-    spawner-is-not-stopped: "&cこのスポナーは湧き止めされていません。"
-    tips: "&7スポナーにレバーを付けてオンにするとモブが湧かなくなります。また、スポナーをクリックすると湧き止めされているか確認できます。"

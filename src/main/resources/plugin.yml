@@ -32,8 +32,6 @@ commands:
   scoreranking:
     description: "Show scoreboard ranking in chat."
     aliases: [srank]
-  spawner:
-    description: "Gets spawner of specified mob."
   suffix:
     description: "Sets suffix. Limitation is based on okocraft rules."
   uniqueprefix:
