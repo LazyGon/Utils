@@ -33,7 +33,6 @@ public class Commands implements CommandExecutor, TabCompleter {
         new MoreUnbreaking();
         new PvPArea();
         new ScoreRanking();
-        new Spawner();
         new Suffix();
         new UniquePrefix();
     }

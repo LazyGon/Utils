@@ -7,9 +7,6 @@ hall-creation-denied-worlds:
 
 more-unbreaking-max-level: 10
 
-spawner-allowed-worlds:
-  - "TT"
-
 prefix-set-command: "lp user %player% meta setprefix 1 %prefix%"
 prefix-remove-command: "lp user %player% meta removeprefix 1 %prefix%"
 suffix-set-command: "lp user %player% meta setsuffix 10 %suffix%"
