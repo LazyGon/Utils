@@ -33,12 +33,6 @@ command:
       not-enough-money: "&cお金が足りません。"
       item-is-not-damaged: "&c耐久値が減っていません。"
       too-low-damaged-percent: "&c減っている耐久値の割合が少なすぎます。(%percent% > %min-percent%)"
-  highjump:
-    description: "&7空高く舞い上がります。"
-    info:
-      highjump: "&7ハイジャンプ!"
-    error:
-      in-cooldown: "&7クールダウン中..."
   inactive-money:
     description: "&7アクティブでないプレイヤーの所持金の合計を表示します。"
     info:
@@ -69,12 +63,7 @@ command:
       no-selection: "&c戦闘場を展開するにはWorldEditで範囲選択してください。"
       must-be-in-owning-protection: "&c自分の保護の中でしか戦闘場を展開できません。"
       you-need-to-create-area: "&cまずは/pvparea コマンドで戦闘場を展開する必要があります。"
-      pvparea-disabled-world: "&cこのワールドでは戦闘場は作れません。"
-  respawn:
-    description: "&7プレイヤーを強制的に復活させる。"
-    error:
-      player-is-not-online: "&cプレイヤーはオフラインです。"
-      player-is-alive: "&cそのプレイヤーは生きてます。"      
+      pvparea-disabled-world: "&cこのワールドでは戦闘場は作れません。"    
   score-ranking:
     description: "&7スコアボードのランキングを表示します。"
     info:
