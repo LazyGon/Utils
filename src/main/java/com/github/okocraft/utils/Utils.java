@@ -11,7 +11,6 @@ import com.github.okocraft.utils.listener.PlayerPunishmentListener;
 import com.github.okocraft.utils.command.Commands;
 import com.github.okocraft.utils.config.Config;
 import com.github.okocraft.utils.listener.BlockBreakListener;
-import com.github.okocraft.utils.listener.CommandListener;
 import com.github.okocraft.utils.listener.PvEReward;
 import com.github.okocraft.utils.listener.PvPArea;
 import com.github.okocraft.utils.listener.RegionExpander;
@@ -43,7 +42,6 @@ public class Utils extends JavaPlugin {
 		} catch (IllegalArgumentException e) {
 			getLogger().warning(e.getMessage());
 		}
-		new CommandListener(this);
 		new PvEReward(this);
 		new PlayerPunishmentListener();
 
