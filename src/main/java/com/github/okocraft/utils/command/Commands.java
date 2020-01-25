@@ -26,7 +26,6 @@ public class Commands implements CommandExecutor, TabCompleter {
         utilsCommand.setExecutor(this);
         utilsCommand.setTabCompleter(this);
 
-        new All();
         new CostRepair();
         new GiveLegendaryTicket();
         new InactiveMoney();
