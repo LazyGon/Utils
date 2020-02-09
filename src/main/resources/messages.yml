@@ -17,35 +17,6 @@ command:
     reload:
       info:
         success: "&7プラグインの設定を再読込しました。"
-  all:
-    description: "&7現在地を中心として、指定された半径の中にいるエンティティの総数を表示します。"
-    info:
-      result: "&7現在地から半径 &b%radius% &7ブロックのエンティティ: &b%amount%"
-  cost-repair:
-    description: "&7お金を消費してアイテムの耐久を回復する。耐久の減り方やエンチャントの種類によって金額は変わる。"
-    info:
-      notify-cost: "&7金額は &b%cost% &7です。それでよければ &b/costrepair confirm &7と入力してください。"
-    error:
-      durability-is-full: "&c耐久値が減っていません。"
-      economy-is-not-enabled: "&cVaultが有効化されていません"
-      cannot-repair-air: "&c空気は直せません"
-      cannot-repair-the-item: "&cそのアイテムは直せません"
-      not-enough-money: "&cお金が足りません。"
-      item-is-not-damaged: "&c耐久値が減っていません。"
-      too-low-damaged-percent: "&c減っている耐久値の割合が少なすぎます。(%percent% > %min-percent%)"
-  inactive-money:
-    description: "&7アクティブでないプレイヤーの所持金の合計を表示します。"
-    info:
-      result: "&7現在アクティブでないプレイヤーの所持金の合計は &b%total% 円です。"
-    error:
-      specify-day: "&c第一引数に日数を入力してください。"
-      specify-excluded: "&c第一引数に日数を入力してください。"
-  more-unbreaking:
-    description: "&7レベル3以上の耐久力エンチャントを、レジェンダリーチケットを消費して付与します。"
-    error:
-      must-be-level-3-or-more: "&c耐久力エンチャントのレベルは3以上である必要があります。"
-      over-max-level: "&cレベル %max-level% までしか上げられません。"
-      stacked-item-is-not-allowed: "&cアイテムを重ねた状態ではこのコマンドは使えません。"
   pvparea:
     description: "&7プレイヤー個人の戦闘場を展開、あるいは操作します。"
     info:
@@ -64,13 +35,6 @@ command:
       must-be-in-owning-protection: "&c自分の保護の中でしか戦闘場を展開できません。"
       you-need-to-create-area: "&cまずは/pvparea コマンドで戦闘場を展開する必要があります。"
       pvparea-disabled-world: "&cこのワールドでは戦闘場は作れません。"    
-  score-ranking:
-    description: "&7スコアボードのランキングを表示します。"
-    info:
-      header: "&b%scoreboard% &7ランキング (&b%page% &7/ &b%max-page%&7)"
-      format: "&b%rank%&7位: &b%entrt% &7- &b%score%"
-    error:
-      objective-does-not-exist: "&cその名前のスコアボードは見つかりませんでした。"
   unique-prefix:
     description: "&7固有称号を操作します。"
     info:
