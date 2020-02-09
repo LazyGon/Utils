@@ -47,7 +47,3 @@ command:
       invalid-syntax: "&c称号の構文を間違えています。§f構文: &(0～9 or a～f) + 日本語1文字。例: &9お"
       player-do-not-have-the-prefix: "&cその称号は &b%player% &7のものではありません！"
       prefix-is-already-in-use: "&cその称号はすでに使われています。"
-listener:
-  wg-gui:
-    too-many-regions: "&3&l[WG-GUI] &c保護の数が多すぎます。保護の最大数は %max-count% 個です。"
-    too-large-region: "&3&l[WG-GUI] &c保護が大きすぎます。保護の最大の大きさは %max-volume% ブロックです。"

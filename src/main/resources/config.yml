@@ -8,13 +8,6 @@ hall-creation-denied-worlds:
 prefix-set-command: "lp user %player% meta setprefix 1 %prefix%"
 prefix-remove-command: "lp user %player% meta removeprefix 1 %prefix%"
 
-jail-name-for-auto-punishment: "jail"
-punishment-point-per-warn:
-  - 500
-  - 5000
-  - 50000
-  - 500000
-
 pvp-area-default:
   smash-mode: true
   item-unlimited: true

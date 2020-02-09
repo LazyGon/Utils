@@ -10,14 +10,6 @@
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
-	        <id>vault-repo</id>
-	        <url>http://nexus.hc.to/content/repositories/pub_releases</url>
-        </repository>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-        <repository>
             <id>enginehub-maven</id>
             <url>http://maven.enginehub.org/repo/</url>
         </repository>
@@ -34,12 +26,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-	        <groupId>com.github.ucchyocean</groupId>
-	        <artifactId>LunaChat</artifactId>
-	        <version>v2.8.12</version>
-            <scope>provided</scope>
-	    </dependency>
-        <dependency>
             <groupId>com.sk89q.worldguard</groupId>
             <artifactId>worldguard-bukkit</artifactId>
             <version>7.0.0</version>
@@ -51,31 +37,6 @@
             <version>7.0.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>net.milkbowl.vault</groupId>
-            <artifactId>VaultAPI</artifactId>
-            <version>1.7</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.lumine.xikage.mythicmobs</groupId>
-            <artifactId>MythicMobs</artifactId>
-            <version>4.6.5</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/MythicMobs-4.6.5.jar</systemPath>
-        </dependency>
-	    <dependency>
-	        <groupId>com.github.LazyGon</groupId>
-	        <artifactId>JailWorker</artifactId>
-	        <version>master-SNAPSHOT</version>
-            <scope>provided</scope>
-	    </dependency>
-	    <dependency>
-	        <groupId>com.github.SiroPlugins</groupId>
-	        <artifactId>PunishmentListener</artifactId>
-	        <version>master-SNAPSHOT</version>
-            <scope>provided</scope>
-	    </dependency>
     </dependencies>
     <build>
         <resources>
