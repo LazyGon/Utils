@@ -7,25 +7,9 @@ softdepend: ["WorldEdit", "WorldGuard"]
 commands:
   utils:
     description: "Base plugin command."
-  costrepair:
-    description: "Repair items."
-  givelegendaryticket:
-    description: "Give legendary ticket. legendary ticket can be modified with config."
-    aliases: [givelt]
-  inactivemoney:
-    description: "Show money owned by inactive players."
-    aliases: [im]
-  moreunbreaking:
-    description: "Upgrade unbreaking enchantment using legendary ticket."
-    aliases: [mu]
   pvparea:
     description: "Manipulate PvP area."
     aliases: [pa]
-  scoreranking:
-    description: "Show scoreboard ranking in chat."
-    aliases: [srank]
-  suffix:
-    description: "Sets suffix. Limitation is based on okocraft rules."
   uniqueprefix:
     description: "Manipulate Unique prefix."
     aliases: [upref]
@@ -51,15 +35,6 @@ permissions:
       utils.uniqueprefix.set: true
       utils.uniqueprefix.remove: true
       utils.uniqueprefix.list: true
-  utils.suffix.*:
-    description: Includes all suffix command's permission.
-    default: op
-    children:
-      utils.uniqueprefix: true
-      utils.uniqueprefix.other: true
-  utils.scoreranking:
-    description: Permission for command /scoreranking <objective> top bottom
-    default: op
   utils.uniqueprefix:
     description: Permission for command /uniqueprefix <args...>
     default: true
@@ -78,21 +53,6 @@ permissions:
   utils.uniqueprefix.other:
     description: Permission for other player argument of /uniqueprefix command
     default: op
-  utils.suffix:
-    description: Permission for /suffix command
-    default: op
-  utils.suffix.other:
-    description: Permission for other player argument of /suffix command
-    default: op
-  utils.costrepair:
-    description: Permission for command /costrepair [confirm]
-    default: true
-  utils.inactivemoney:
-    description: Permission for command /inactivemoney [confirm]
-    default: op
-  utils.moreunbreaking:
-    description: Permission for command /moreunbreaking
-    default: true
   utils.pvparea:
     description: Permission for command /pvparea [smashmode|itemunlimited] [true|false]
     default: true

@@ -2,8 +2,6 @@
 package com.github.okocraft.utils.config;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 import com.github.okocraft.utils.Utils;
 
@@ -89,14 +87,6 @@ public final class Config {
         return get().getString("prefix-set-command");
     }
 
-    public static String getSuffixSetCommand() {
-        return get().getString("suffix-set-command");
-    }
-
-    public static List<World> getSpawnerAllowedWorlds() {
-        return get().getStringList("spawner-allowed-worlds").stream().map(Bukkit::getWorld).filter(Objects::nonNull).collect(Collectors.toList());
-    }
-
     public static ItemStack getLegendaryTicket() {
         String name = get().getString("legendary-ticket.display-name", "§6§lレジェンダリーチケット");
         List<String> lore = get().getStringList("legendary-ticket.lore");
@@ -108,10 +98,6 @@ public final class Config {
                 setItemMeta(meta);
             }
         };
-    }
-
-    public static int getMaxUnbreakingLevel() {
-        return get().getInt("more-unbreaking-max-level", 10);
     }
 
     /**
@@ -146,7 +132,6 @@ public final class Config {
 		reload();
         PrefixData.reload();
         Messages.reload();
-        RepairCostConfig.reload();
         
     }
 }
