@@ -71,14 +71,6 @@ public final class Config {
         return Bukkit.getWorld(get().getString("pvp-area-default.world", ""));
     }
 
-    public static String getJailName() {
-        return get().getString("jail-name-for-auto-punishment");
-    }
-
-    public static List<Integer> getPunishmentPointPerWarns() {
-        return get().getIntegerList("punishment-point-per-warn");
-    }
-
     public static String getPrefixRemoveCommand() {
         return get().getString("prefix-remove-command");
     }
