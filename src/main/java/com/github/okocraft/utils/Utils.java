@@ -6,7 +6,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.okocraft.utils.command.Commands;
 import com.github.okocraft.utils.config.Config;
-import com.github.okocraft.utils.listener.BlockBreakListener;
 
 public class Utils extends JavaPlugin {
 
@@ -14,11 +13,8 @@ public class Utils extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-
 		Config.reloadAllConfigs();
 		Commands.init();
-
-		BlockBreakListener.start();
 	}
 
 	@Override
