@@ -7,7 +7,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.github.okocraft.utils.command.Commands;
 import com.github.okocraft.utils.config.Config;
 import com.github.okocraft.utils.listener.BlockBreakListener;
-import com.github.okocraft.utils.listener.PvPArea;
 
 public class Utils extends JavaPlugin {
 
@@ -18,12 +17,6 @@ public class Utils extends JavaPlugin {
 
 		Config.reloadAllConfigs();
 		Commands.init();
-
-		try {
-			new PvPArea(Config.getDefaultPvPAreaPos1(), Config.getDefaultPvPAreaPos2(), Config.getDefaultPvPAreaRespawn());
-		} catch (IllegalArgumentException e) {
-			getLogger().warning(e.getMessage());
-		}
 
 		BlockBreakListener.start();
 	}
